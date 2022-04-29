@@ -1,0 +1,587 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		741457FF281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		74145804281C164D00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145803281C164D00374996 /* Assets.xcassets */; };
+		7414580A281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7414580F281C164D00374996 /* SleepPhaseWakeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */; };
+		74145811281C164D00374996 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145810281C164D00374996 /* ContentView.swift */; };
+		74145813281C164D00374996 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145812281C164D00374996 /* NotificationController.swift */; };
+		74145815281C164D00374996 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145814281C164D00374996 /* NotificationView.swift */; };
+		74145817281C164D00374996 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145816281C164D00374996 /* ComplicationController.swift */; };
+		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
+		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		74145800281C164C00374996 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 741457F4281C164B00374996 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 741457FD281C164C00374996;
+			remoteInfo = "SleepPhaseWakeApp WatchKit App";
+		};
+		7414580B281C164D00374996 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 741457F4281C164B00374996 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74145808281C164D00374996;
+			remoteInfo = "SleepPhaseWakeApp WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		74145824281C164E00374996 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7414580A281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74145828281C164E00374996 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				741457FF281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		741457FA281C164B00374996 /* SleepPhaseWakeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepPhaseWakeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SleepPhaseWakeApp WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74145803281C164D00374996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SleepPhaseWakeApp WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepPhaseWakeApp.swift; sourceTree = "<group>"; };
+		74145810281C164D00374996 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		74145812281C164D00374996 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		74145814281C164D00374996 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		74145816281C164D00374996 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		74145818281C164E00374996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7414581B281C164E00374996 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7414581D281C164E00374996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7414581E281C164E00374996 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		74145806281C164D00374996 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		741457F3281C164B00374996 = {
+			isa = PBXGroup;
+			children = (
+				74145802281C164C00374996 /* SleepPhaseWakeApp WatchKit App */,
+				7414580D281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */,
+				741457FB281C164B00374996 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		741457FB281C164B00374996 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				741457FA281C164B00374996 /* SleepPhaseWakeApp.app */,
+				741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */,
+				74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		74145802281C164C00374996 /* SleepPhaseWakeApp WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				74145803281C164D00374996 /* Assets.xcassets */,
+			);
+			path = "SleepPhaseWakeApp WatchKit App";
+			sourceTree = "<group>";
+		};
+		7414580D281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
+				74145810281C164D00374996 /* ContentView.swift */,
+				74145812281C164D00374996 /* NotificationController.swift */,
+				74145814281C164D00374996 /* NotificationView.swift */,
+				74145816281C164D00374996 /* ComplicationController.swift */,
+				74145818281C164E00374996 /* Assets.xcassets */,
+				7414581D281C164E00374996 /* Info.plist */,
+				7414581E281C164E00374996 /* PushNotificationPayload.apns */,
+				7414581A281C164E00374996 /* Preview Content */,
+			);
+			path = "SleepPhaseWakeApp WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		7414581A281C164E00374996 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7414581B281C164E00374996 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		741457F9281C164B00374996 /* SleepPhaseWakeApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74145829281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp" */;
+			buildPhases = (
+				741457F8281C164B00374996 /* Resources */,
+				74145828281C164E00374996 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				74145801281C164C00374996 /* PBXTargetDependency */,
+			);
+			name = SleepPhaseWakeApp;
+			productName = SleepPhaseWakeApp;
+			productReference = 741457FA281C164B00374996 /* SleepPhaseWakeApp.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		741457FD281C164C00374996 /* SleepPhaseWakeApp WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74145825281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit App" */;
+			buildPhases = (
+				741457FC281C164C00374996 /* Resources */,
+				74145824281C164E00374996 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7414580C281C164D00374996 /* PBXTargetDependency */,
+			);
+			name = "SleepPhaseWakeApp WatchKit App";
+			productName = "SleepPhaseWakeApp WatchKit App";
+			productReference = 741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		74145808281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74145821281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit Extension" */;
+			buildPhases = (
+				74145805281C164D00374996 /* Sources */,
+				74145806281C164D00374996 /* Frameworks */,
+				74145807281C164D00374996 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SleepPhaseWakeApp WatchKit Extension";
+			productName = "SleepPhaseWakeApp WatchKit Extension";
+			productReference = 74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		741457F4281C164B00374996 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					741457F9281C164B00374996 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					741457FD281C164C00374996 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					74145808281C164D00374996 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 741457F7281C164B00374996 /* Build configuration list for PBXProject "SleepPhaseWakeApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 741457F3281C164B00374996;
+			productRefGroup = 741457FB281C164B00374996 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				741457F9281C164B00374996 /* SleepPhaseWakeApp */,
+				741457FD281C164C00374996 /* SleepPhaseWakeApp WatchKit App */,
+				74145808281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		741457F8281C164B00374996 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		741457FC281C164C00374996 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74145804281C164D00374996 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74145807281C164D00374996 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */,
+				74145819281C164E00374996 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		74145805281C164D00374996 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74145813281C164D00374996 /* NotificationController.swift in Sources */,
+				74145811281C164D00374996 /* ContentView.swift in Sources */,
+				74145817281C164D00374996 /* ComplicationController.swift in Sources */,
+				7414580F281C164D00374996 /* SleepPhaseWakeApp.swift in Sources */,
+				74145815281C164D00374996 /* NotificationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		74145801281C164C00374996 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 741457FD281C164C00374996 /* SleepPhaseWakeApp WatchKit App */;
+			targetProxy = 74145800281C164C00374996 /* PBXContainerItemProxy */;
+		};
+		7414580C281C164D00374996 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74145808281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */;
+			targetProxy = 7414580B281C164D00374996 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7414581F281C164E00374996 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		74145820281C164E00374996 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		74145822281C164E00374996 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SleepPhaseWakeApp WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SleepPhaseWakeApp WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Debug;
+		};
+		74145823281C164E00374996 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SleepPhaseWakeApp WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SleepPhaseWakeApp WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Release;
+		};
+		74145826281C164E00374996 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = SleepPhaseWakeApp_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SleepPhaseWakeApp WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Debug;
+		};
+		74145827281C164E00374996 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = SleepPhaseWakeApp_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SleepPhaseWakeApp WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Release;
+		};
+		7414582A281C164E00374996 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7414582B281C164E00374996 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FWHF624C4H;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		741457F7281C164B00374996 /* Build configuration list for PBXProject "SleepPhaseWakeApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7414581F281C164E00374996 /* Debug */,
+				74145820281C164E00374996 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74145821281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74145822281C164E00374996 /* Debug */,
+				74145823281C164E00374996 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74145825281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74145826281C164E00374996 /* Debug */,
+				74145827281C164E00374996 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74145829281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7414582A281C164E00374996 /* Debug */,
+				7414582B281C164E00374996 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 741457F4281C164B00374996 /* Project object */;
+}
