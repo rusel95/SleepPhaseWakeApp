@@ -12,5 +12,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSMotionUsageDescription</key>
+	<string>App Uses your accelerometer data to measure Phase of your sleep with allows to Wake you Up in the best moment</string>
 </dict>
 </plist>
