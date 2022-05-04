@@ -17,6 +17,7 @@
 		74145817281C164D00374996 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145816281C164D00374996 /* ComplicationController.swift */; };
 		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
 		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
+		748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		7414581B281C164E00374996 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7414581D281C164E00374996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7414581E281C164E00374996 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMSensorDataList+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		7414580D281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				748ECE4E2822866C00BD8F11 /* Helpers */,
 				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
 				74145810281C164D00374996 /* ContentView.swift */,
 				74145812281C164D00374996 /* NotificationController.swift */,
@@ -137,6 +140,14 @@
 				7414581B281C164E00374996 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		748ECE4E2822866C00BD8F11 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +281,7 @@
 				74145811281C164D00374996 /* ContentView.swift in Sources */,
 				74145817281C164D00374996 /* ComplicationController.swift in Sources */,
 				7414580F281C164D00374996 /* SleepPhaseWakeApp.swift in Sources */,
+				748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */,
 				74145815281C164D00374996 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
