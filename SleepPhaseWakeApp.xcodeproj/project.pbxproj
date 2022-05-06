@@ -63,7 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		741457FA281C164B00374996 /* SleepPhaseWakeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepPhaseWakeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		741457FA281C164B00374996 /* Sleep Phase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep Phase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SleepPhaseWakeApp WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74145803281C164D00374996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SleepPhaseWakeApp WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +102,7 @@
 		741457FB281C164B00374996 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				741457FA281C164B00374996 /* SleepPhaseWakeApp.app */,
+				741457FA281C164B00374996 /* Sleep Phase.app */,
 				741457FE281C164C00374996 /* SleepPhaseWakeApp WatchKit App.app */,
 				74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */,
 			);
@@ -167,7 +167,7 @@
 			);
 			name = SleepPhaseWakeApp;
 			productName = SleepPhaseWakeApp;
-			productReference = 741457FA281C164B00374996 /* SleepPhaseWakeApp.app */;
+			productReference = 741457FA281C164B00374996 /* Sleep Phase.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
 		};
 		741457FD281C164C00374996 /* SleepPhaseWakeApp WatchKit App */ = {
@@ -536,7 +536,7 @@
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Sleep Phase";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -549,7 +549,7 @@
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Sleep Phase";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
