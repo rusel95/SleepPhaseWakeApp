@@ -18,6 +18,7 @@
 		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
 		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
 		74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */; };
+		74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74840391282547EF009CF2A4 /* NotStartedSessionView.swift */; };
 		748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		7414581D281C164E00374996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7414581E281C164E00374996 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
+		74840391282547EF009CF2A4 /* NotStartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionView.swift; sourceTree = "<group>"; };
 		748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMSensorDataList+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				748ECE4E2822866C00BD8F11 /* Helpers */,
 				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
 				74145810281C164D00374996 /* ContentView.swift */,
+				74840391282547EF009CF2A4 /* NotStartedSessionView.swift */,
 				74145812281C164D00374996 /* NotificationController.swift */,
 				74145814281C164D00374996 /* NotificationView.swift */,
 				74145816281C164D00374996 /* ComplicationController.swift */,
@@ -285,6 +288,7 @@
 				74145811281C164D00374996 /* ContentView.swift in Sources */,
 				74145817281C164D00374996 /* ComplicationController.swift in Sources */,
 				7414580F281C164D00374996 /* SleepPhaseWakeApp.swift in Sources */,
+				74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */,
 				748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */,
 				74145815281C164D00374996 /* NotificationView.swift in Sources */,
 			);

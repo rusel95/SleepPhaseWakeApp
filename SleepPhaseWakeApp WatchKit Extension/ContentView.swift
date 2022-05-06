@@ -30,14 +30,7 @@ struct ContentView: View {
         VStack {
             switch state {
             case .noStarted:
-                Spacer()
-                Text("Select Wake Up time:")
-                Text("8 hour")
-                Button("Start") {
-                    state = .started
-                    startRecording()
-                }
-                Spacer()
+                NotStartedSessionView()
             case .started:
                 Spacer()
                 Button("Stop") {
@@ -47,21 +40,11 @@ struct ContentView: View {
                 Spacer()
             }
 
-        }
+        } //: VStack
         .padding()
         .ignoresSafeArea()
         .background(Color.teal)
 
-    }
-
-    private func startRecording() {
-        lastSessionStart = Date()
-
-        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            DispatchQueue.global(qos: .background).async {
-                self.recorder.recordAccelerometer(forDuration: defaultTimeInterval)
-            }
-        }
     }
 
     private func stopRecording() {
