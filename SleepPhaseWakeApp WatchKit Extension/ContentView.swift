@@ -17,27 +17,15 @@ enum MeasureState {
 struct ContentView: View {
 
     @State var state: MeasureState = .noStarted
+    @AppStorage("lastSessionStart") var lastSessionStart: Date?
 
     private let recorder = CMSensorRecorder()
     private let defaultTimeInterval = TimeInterval(8*60)
 
-//    private var lastSessionStart: Date? {
-//        get {
-//            let timeInterval = TimeInterval(UserDefaults.standard.integer(forKey: "lastSessionStartTimeInterval"))
-//            return Date(timeIntervalSince1970: timeInterval)
-//        }
-//        set {
-//
-//        }
-//    }
-
-
     var body: some View {
         VStack {
-            Spacer()
             Text("Select Wake Up time:")
             Text("8 hour")
-            Spacer()
             Button("Start") { startRecording() }
             Button("Print") { printData() }
         }
@@ -47,7 +35,7 @@ struct ContentView: View {
     }
 
     private func startRecording() {
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "lastSessionStartTimeInterval")
+        lastSessionStart = Date()
 
         DispatchQueue.global(qos: .background).async {
             self.recorder.recordAccelerometer(forDuration: defaultTimeInterval)
