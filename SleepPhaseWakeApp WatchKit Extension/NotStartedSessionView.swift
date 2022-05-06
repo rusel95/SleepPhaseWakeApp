@@ -12,8 +12,8 @@ struct NotStartedSessionView: View {
 
     // MARK: - Property
 
-    @AppStorage("measureState") var state: MeasureState = .noStarted
-    @AppStorage("lastSessionStart") var lastSessionStart: Date?
+    @AppStorage("measureState") private var state: MeasureState = .noStarted
+    @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
     private let recorder = CMSensorRecorder()
     private let defaultTimeInterval = TimeInterval(8*60)
