@@ -1,6 +1,10 @@
 {
   "images" : [
     {
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "216.png",
       "idiom" : "watch"
     }
   ],
