@@ -9,62 +9,72 @@ import Foundation
 import SwiftUI
 import CoreMotion
 
-enum MeasureState {
+enum MeasureState: String {
     case noStarted
     case started
 }
 
 struct ContentView: View {
 
-    @State var state: MeasureState = .noStarted
+    // MARK: - Property
+
+    @AppStorage("measureState") var state: MeasureState = .noStarted
     @AppStorage("lastSessionStart") var lastSessionStart: Date?
 
     private let recorder = CMSensorRecorder()
     private let defaultTimeInterval = TimeInterval(8*60)
 
+    // MARK: - Body
+
     var body: some View {
         VStack {
-            Text("Select Wake Up time:")
-            Text("8 hour")
-            Button("Start") { startRecording() }
-            Button("Print") { printData() }
+            switch state {
+            case .noStarted:
+                Spacer()
+                Text("Select Wake Up time:")
+                Text("8 hour")
+                Button("Start") {
+                    state = .started
+                    startRecording()
+                }
+                Spacer()
+            case .started:
+                Spacer()
+                Button("Stop") {
+                    state = .noStarted
+                    stopRecording()
+                }
+                Spacer()
+            }
+
         }
         .padding()
         .ignoresSafeArea()
         .background(Color.teal)
+
     }
 
     private func startRecording() {
         lastSessionStart = Date()
 
-        DispatchQueue.global(qos: .background).async {
-            self.recorder.recordAccelerometer(forDuration: defaultTimeInterval)
+        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+            DispatchQueue.global(qos: .background).async {
+                self.recorder.recordAccelerometer(forDuration: defaultTimeInterval)
+            }
         }
     }
 
-    private func printData() {
-//        let lastSessionInterval = TimeInterval(UserDefaults.standard.integer(forKey: "lastSessionStartTimeInterval"))
-//        if lastSessionInterval > 0,
-//           let list = recorder.accelerometerData(from: Date(timeIntervalSince1970: lastSessionInterval), to: Date())?.enumerated() {
-//            print("listing data")
-//            for item in list {
-//                guard let data = item.element as? CMRecordedAccelerometerData else { return }
-//
-//                print(data.startDate, data.acceleration.x, data.acceleration.y, data.acceleration.z)
-//            }
-//        }
-        print("Start Printintg")
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            DispatchQueue.global(qos: .background).async {
-                guard let list = recorder.accelerometerData(from: Date(timeIntervalSinceNow: TimeInterval(-1)),
-                                                            to: Date())?.enumerated() else { return }
+    private func stopRecording() {
+        if let lastSessionStart = lastSessionStart, lastSessionStart.timeIntervalSinceNow > 0,
+           let list = recorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() {
+            print("listing data")
+            for item in list {
+                guard let data = item.element as? CMRecordedAccelerometerData else { return }
 
-                for item in list {
-                    guard let data = item.element as? CMRecordedAccelerometerData else { return }
-                    let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
-                    print(data.startDate, totalAcceleration)
-                }
+                let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
+                print(data.startDate, data.acceleration.x, data.acceleration.y, data.acceleration.z, totalAcceleration)
             }
+            self.lastSessionStart = nil
         }
     }
 
