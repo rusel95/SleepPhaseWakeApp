@@ -24,7 +24,9 @@ struct StartedSessionView: View {
         VStack {
             Spacer()
             Button("Stop") {
-                state = .noStarted
+                withAnimation(.easeIn(duration: 2.0)) {
+                    state = .noStarted
+                }
                 stopRecording()
             }
             Spacer()

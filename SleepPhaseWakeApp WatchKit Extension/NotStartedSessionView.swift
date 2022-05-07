@@ -17,6 +17,7 @@ struct NotStartedSessionView: View {
 
     @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 12
     @State private var buttonOffset: CGFloat = 0
+    @State private var isAnimating: Bool = false
 
     private let recorder = CMSensorRecorder()
     private let defaultTimeInterval = TimeInterval(8*60) // 1 minute
@@ -31,13 +32,21 @@ struct NotStartedSessionView: View {
                 Spacer()
 
                 Text("Select Wake Up time:")
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : -20)
+                    .animation(.easeInOut(duration: 1), value: isAnimating)
+
+                Spacer()
+
                 Text("8 hour")
+                    .opacity(isAnimating ? 1 : 0)
+                    .animation(.easeInOut(duration: 1), value: isAnimating)
 
                 Spacer()
 
                 // MARK: Drag View
-                ZStack {
 
+                ZStack {
                     // 1. CAPSULES (STATIC)
                     Capsule()
                         .fill(Color.white.opacity(0.2))
@@ -86,12 +95,15 @@ struct NotStartedSessionView: View {
                                     }
                                 })
                                 .onEnded({ _ in
-                                    if buttonOffset > dragViewWidth / 2.0 {
-                                        buttonOffset = dragViewWidth - dragButtonSideSize
-                                        state = .started
-                                    } else {
-                                        buttonOffset = 0
+                                    withAnimation(.easeOut(duration: 5)) {
+                                        if buttonOffset > dragViewWidth / 2.0 {
+                                            buttonOffset = dragViewWidth - dragButtonSideSize
+                                            state = .started
+                                        } else {
+                                            buttonOffset = 0
+                                        }
                                     }
+                                    startRecording()
                                 })
                         )
 
@@ -101,12 +113,17 @@ struct NotStartedSessionView: View {
 
                 } //: ZStack
                 .frame(height: dragButtonSideSize, alignment: .center)
+                .opacity(isAnimating ? 1 : 0)
+                .offset(y: isAnimating ? 0 : 40)
+                .animation(.easeInOut(duration: 1), value: isAnimating)
 
                 Spacer()
             } //: VStack
             .padding(6)
             .ignoresSafeArea()
             .background(Color.teal)
+        }.onAppear {
+            isAnimating = true
         }
     }
 
