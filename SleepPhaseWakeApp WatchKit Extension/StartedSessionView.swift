@@ -21,15 +21,26 @@ struct StartedSessionView: View {
     // MARK: - Body
 
     var body: some View {
-        Spacer()
-        Button("Stop") {
-            state = .noStarted
-            stopRecording()
-        }
-        Spacer()
+        VStack {
+            Spacer()
+            Button("Stop") {
+                state = .noStarted
+                stopRecording()
+            }
+            Spacer()
+        } //: VStack
+        .padding()
+        .ignoresSafeArea()
+        .background(Color.indigo)
     }
 
-    private func stopRecording() {
+}
+
+// MARK: - Helpers
+
+private extension StartedSessionView {
+
+    func stopRecording() {
         if let lastSessionStart = lastSessionStart, lastSessionStart.timeIntervalSinceNow > 0,
            let list = recorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() {
             print("listing data")

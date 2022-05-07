@@ -22,18 +22,12 @@ struct ContentView: View {
     // MARK: - Body
 
     var body: some View {
-        VStack {
-            switch state {
-            case .noStarted:
-                NotStartedSessionView()
-            case .started:
-                StartedSessionView()
-            }
-
-        } //: VStack
-        .padding()
-        .ignoresSafeArea()
-        .background(Color.teal)
+        switch state {
+        case .noStarted:
+            NotStartedSessionView()
+        case .started:
+            StartedSessionView()
+        }
     }
 
 }
