@@ -145,8 +145,12 @@ private extension NotStartedSessionView {
     
 }
 
+// MARK: - Preview
+
 struct NotStartedSessionView_Previews: PreviewProvider {
+
     static var previews: some View {
         NotStartedSessionView()
     }
+
 }

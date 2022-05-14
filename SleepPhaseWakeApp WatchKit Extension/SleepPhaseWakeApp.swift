@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct SleepPhaseWakeApp: App {
+
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
@@ -18,4 +19,5 @@ struct SleepPhaseWakeApp: App {
 
         WKNotificationScene(controller: NotificationController.self, category: "myCategory")
     }
+    
 }
