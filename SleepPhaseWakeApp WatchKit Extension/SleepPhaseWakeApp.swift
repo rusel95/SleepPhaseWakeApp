@@ -12,9 +12,7 @@ struct SleepPhaseWakeApp: App {
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
-            }
+            ContentView().navigationTitle("Sleep Phase")
         }
 
         WKNotificationScene(controller: NotificationController.self, category: "myCategory")
