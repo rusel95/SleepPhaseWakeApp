@@ -129,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				745BC7EC28351BBA005134B2 /* Services */,
-				748ECE4E2822866C00BD8F11 /* Helpers */,
 				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
 				74145810281C164D00374996 /* ContentView.swift */,
 				74840391282547EF009CF2A4 /* NotStartedSessionView.swift */,
@@ -137,9 +136,8 @@
 				74145812281C164D00374996 /* NotificationController.swift */,
 				74145814281C164D00374996 /* NotificationView.swift */,
 				74145816281C164D00374996 /* ComplicationController.swift */,
-				74145818281C164E00374996 /* Assets.xcassets */,
-				7414581D281C164E00374996 /* Info.plist */,
-				7414581E281C164E00374996 /* PushNotificationPayload.apns */,
+				748ECE4E2822866C00BD8F11 /* Helpers */,
+				745BC7ED2835249F005134B2 /* Resources */,
 				7414581A281C164E00374996 /* Preview Content */,
 			);
 			path = "SleepPhaseWakeApp WatchKit Extension";
@@ -159,6 +157,16 @@
 				745BC7EA28350964005134B2 /* SessionCoordinator.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		745BC7ED2835249F005134B2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				74145818281C164E00374996 /* Assets.xcassets */,
+				7414581D281C164E00374996 /* Info.plist */,
+				7414581E281C164E00374996 /* PushNotificationPayload.apns */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		748ECE4E2822866C00BD8F11 /* Helpers */ = {
@@ -450,7 +458,7 @@
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Sleep Phase";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = SleepPhaseWakeApp_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -483,7 +491,7 @@
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Sleep Phase";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = SleepPhaseWakeApp_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -562,6 +570,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";
@@ -575,6 +584,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
+				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";

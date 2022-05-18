@@ -15,8 +15,10 @@ struct StartedSessionView: View {
     @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
+    @Environment(\.scenePhase) var scenePhase
+
     private let recorder = CMSensorRecorder()
-    private let defaultTimeInterval = TimeInterval(8*60)
+    private let defaultTimeInterval = TimeInterval(2*60)
     private let sessionCoordinator = SessionCoordinator()
 
     // MARK: - Body
@@ -38,7 +40,7 @@ struct StartedSessionView: View {
         .onAppear {
             sessionCoordinator.start()
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                print("working")
+                debugPrint("working", Date())
             })
         }
     }
