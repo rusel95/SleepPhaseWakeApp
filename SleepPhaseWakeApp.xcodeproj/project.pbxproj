@@ -17,7 +17,7 @@
 		74145817281C164D00374996 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145816281C164D00374996 /* ComplicationController.swift */; };
 		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
 		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
-		745BC7EB28350964005134B2 /* SessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC7EA28350964005134B2 /* SessionCoordinator.swift */; };
+		745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */; };
 		74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */; };
 		74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74840391282547EF009CF2A4 /* NotStartedSessionView.swift */; };
 		748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748403932825497D009CF2A4 /* StartedSessionView.swift */; };
@@ -80,7 +80,7 @@
 		7414581B281C164E00374996 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7414581D281C164E00374996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7414581E281C164E00374996 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		745BC7EA28350964005134B2 /* SessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCoordinator.swift; sourceTree = "<group>"; };
+		745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSessionCoordinatorService.swift; sourceTree = "<group>"; };
 		7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		74840391282547EF009CF2A4 /* NotStartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionView.swift; sourceTree = "<group>"; };
 		748403932825497D009CF2A4 /* StartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedSessionView.swift; sourceTree = "<group>"; };
@@ -128,9 +128,9 @@
 		7414580D281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				745BC7EC28351BBA005134B2 /* Services */,
 				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
 				74145810281C164D00374996 /* ContentView.swift */,
+				745BC7EC28351BBA005134B2 /* Services */,
 				74840391282547EF009CF2A4 /* NotStartedSessionView.swift */,
 				748403932825497D009CF2A4 /* StartedSessionView.swift */,
 				74145812281C164D00374996 /* NotificationController.swift */,
@@ -154,7 +154,7 @@
 		745BC7EC28351BBA005134B2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				745BC7EA28350964005134B2 /* SessionCoordinator.swift */,
+				745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 				748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */,
 				748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */,
 				74145815281C164D00374996 /* NotificationView.swift in Sources */,
-				745BC7EB28350964005134B2 /* SessionCoordinator.swift in Sources */,
+				745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,13 +13,11 @@ struct StartedSessionView: View {
     // MARK: - Property
 
     @AppStorage("measureState") private var state: MeasureState = .started
-    @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
     @Environment(\.scenePhase) var scenePhase
 
     private let recorder = CMSensorRecorder()
-    private let defaultTimeInterval = TimeInterval(2*60)
-    private let sessionCoordinator = SessionCoordinator()
+    private let sessionCoordinator = SleepSessionCoordinatorService()
 
     // MARK: - Body
 
@@ -52,21 +50,7 @@ struct StartedSessionView: View {
 private extension StartedSessionView {
 
     func stopRecording() {
-        logAccelerometerData()
         sessionCoordinator.invalidate()
-        lastSessionStart = nil
-    }
-
-    func logAccelerometerData() {
-        guard let lastSessionStart = lastSessionStart, lastSessionStart.timeIntervalSinceNow > 0,
-              let list = recorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() else { return }
-
-        for item in list {
-            guard let data = item.element as? CMRecordedAccelerometerData else { return }
-
-            let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
-            print(data.startDate, data.acceleration.x, data.acceleration.y, data.acceleration.z, totalAcceleration)
-        }
     }
 
 }

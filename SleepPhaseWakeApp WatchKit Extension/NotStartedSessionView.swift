@@ -6,21 +6,17 @@
 //
 
 import SwiftUI
-import CoreMotion
 
 struct NotStartedSessionView: View {
 
     // MARK: - Property
 
     @AppStorage("measureState") private var state: MeasureState = .noStarted
-    @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
     @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 12
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
 
-    private let recorder = CMSensorRecorder()
-    private let defaultTimeInterval = TimeInterval(8*60) // 1 minute
     private let dragButtonSideSize: CGFloat = 50.0
 
     // MARK: - Body
@@ -103,7 +99,6 @@ struct NotStartedSessionView: View {
                                             buttonOffset = 0
                                         }
                                     }
-                                    startRecording()
                                 })
                         )
 
@@ -127,22 +122,6 @@ struct NotStartedSessionView: View {
         }
     }
 
-}
-
-// MARK: - Helpers
-
-private extension NotStartedSessionView {
-
-    func startRecording() {
-        lastSessionStart = Date()
-
-        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            DispatchQueue.global(qos: .background).async {
-                self.recorder.recordAccelerometer(forDuration: defaultTimeInterval)
-            }
-        }
-    }
-    
 }
 
 // MARK: - Preview
