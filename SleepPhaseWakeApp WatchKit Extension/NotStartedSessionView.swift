@@ -95,7 +95,7 @@ struct NotStartedSessionView: View {
                                     }
                                 })
                                 .onEnded({ _ in
-                                    withAnimation(.easeOut(duration: 5)) {
+                                    withAnimation(.easeOut(duration: 0.3)) {
                                         if buttonOffset > dragViewWidth / 2.0 {
                                             buttonOffset = dragViewWidth - dragButtonSideSize
                                             state = .started
@@ -115,7 +115,7 @@ struct NotStartedSessionView: View {
                 .frame(height: dragButtonSideSize, alignment: .center)
                 .opacity(isAnimating ? 1 : 0)
                 .offset(y: isAnimating ? 0 : 40)
-                .animation(.easeInOut(duration: 1), value: isAnimating)
+                .animation(.easeInOut(duration: 0.3), value: isAnimating)
 
                 Spacer()
             } //: VStack

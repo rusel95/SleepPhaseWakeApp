@@ -17,6 +17,7 @@ struct StartedSessionView: View {
 
     private let recorder = CMSensorRecorder()
     private let defaultTimeInterval = TimeInterval(8*60)
+    private let sessionCoordinator = SessionCoordinator()
 
     // MARK: - Body
 
@@ -24,7 +25,7 @@ struct StartedSessionView: View {
         VStack {
             Spacer()
             Button("Stop") {
-                withAnimation(.easeIn(duration: 2.0)) {
+                withAnimation(.easeIn(duration: 0.3)) {
                     state = .noStarted
                 }
                 stopRecording()
@@ -34,6 +35,12 @@ struct StartedSessionView: View {
         .padding()
         .ignoresSafeArea()
         .background(Color.indigo)
+        .onAppear {
+            sessionCoordinator.start()
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+                print("working")
+            })
+        }
     }
 
 }
@@ -43,16 +50,20 @@ struct StartedSessionView: View {
 private extension StartedSessionView {
 
     func stopRecording() {
-        if let lastSessionStart = lastSessionStart, lastSessionStart.timeIntervalSinceNow > 0,
-           let list = recorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() {
-            print("listing data")
-            for item in list {
-                guard let data = item.element as? CMRecordedAccelerometerData else { return }
+        logAccelerometerData()
+        sessionCoordinator.invalidate()
+        lastSessionStart = nil
+    }
 
-                let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
-                print(data.startDate, data.acceleration.x, data.acceleration.y, data.acceleration.z, totalAcceleration)
-            }
-            self.lastSessionStart = nil
+    func logAccelerometerData() {
+        guard let lastSessionStart = lastSessionStart, lastSessionStart.timeIntervalSinceNow > 0,
+              let list = recorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() else { return }
+
+        for item in list {
+            guard let data = item.element as? CMRecordedAccelerometerData else { return }
+
+            let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
+            print(data.startDate, data.acceleration.x, data.acceleration.y, data.acceleration.z, totalAcceleration)
         }
     }
 
