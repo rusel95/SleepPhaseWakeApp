@@ -17,7 +17,6 @@ struct StartedSessionView: View {
     @Environment(\.scenePhase) var scenePhase
 
     private let recorder = CMSensorRecorder()
-    private let sessionCoordinator = SleepSessionCoordinatorService()
 
     // MARK: - Body
 
@@ -36,7 +35,7 @@ struct StartedSessionView: View {
         .ignoresSafeArea()
         .background(Color.indigo)
         .onAppear {
-            sessionCoordinator.start()
+            SleepSessionCoordinatorService.shared.start()
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
                 debugPrint("working", Date())
             })
@@ -50,7 +49,7 @@ struct StartedSessionView: View {
 private extension StartedSessionView {
 
     func stopRecording() {
-        sessionCoordinator.invalidate()
+        SleepSessionCoordinatorService.shared.invalidate()
     }
 
 }

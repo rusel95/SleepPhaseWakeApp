@@ -11,6 +11,8 @@ import CoreMotion
 final class SleepSessionCoordinatorService: NSObject {
 
     // MARK: - PROPERTY
+
+    static let shared: SleepSessionCoordinatorService = SleepSessionCoordinatorService()
     
     private var runtimeSession: WKExtendedRuntimeSession?
     private let sensorRecorder = CMSensorRecorder()
@@ -18,6 +20,10 @@ final class SleepSessionCoordinatorService: NSObject {
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
     private let defaultDurationTimeInterval = TimeInterval(2*60) // 2 minutes
+
+    // MARK: - INIT
+
+    private override init() { }
 
     deinit {
         print("OOps")
@@ -50,7 +56,6 @@ final class SleepSessionCoordinatorService: NSObject {
         logAccelerometerData()
         lastSessionStart = nil
 
-        runtimeSession?.notifyUser(hapticType: .click)
         runtimeSession?.delegate = nil
         runtimeSession?.invalidate()
     }
@@ -65,7 +70,7 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
         print("Session stopped at", Date())
-        debugPrint(extendedRuntimeSession, reason, error)
+        debugPrint(extendedRuntimeSession, reason, error!)
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
@@ -86,7 +91,9 @@ private extension SleepSessionCoordinatorService {
     func scheduleDataProcessing() {
         // NOTE: - Simulate Smart Alarm - show some notification after 1.5 minutes
         DispatchQueue.main.asyncAfter(deadline: .now() + defaultDurationTimeInterval - 30) {
-            self.runtimeSession?.notifyUser(hapticType: .start)
+            if self.runtimeSession?.state == .running {
+                self.runtimeSession?.notifyUser(hapticType: .start)
+            }
         }
     }
 
