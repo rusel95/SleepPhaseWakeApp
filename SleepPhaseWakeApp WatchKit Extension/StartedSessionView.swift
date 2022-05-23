@@ -16,8 +16,6 @@ struct StartedSessionView: View {
 
     @Environment(\.scenePhase) var scenePhase
 
-    private let recorder = CMSensorRecorder()
-
     // MARK: - Body
 
     var body: some View {
@@ -36,9 +34,6 @@ struct StartedSessionView: View {
         .background(Color.indigo)
         .onAppear {
             SleepSessionCoordinatorService.shared.start()
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                debugPrint("working", Date())
-            })
         }
     }
 

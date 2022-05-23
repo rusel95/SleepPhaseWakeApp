@@ -48,8 +48,6 @@ final class SleepSessionCoordinatorService: NSObject {
                 self.sensorRecorder.recordAccelerometer(forDuration: self.defaultDurationTimeInterval)
             }
         }
-
-        scheduleDataProcessing()
     }
 
     func invalidate() {
@@ -74,12 +72,13 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        print("Session stopped at", Date())
+        print("Session started at", Date())
         debugPrint(extendedRuntimeSession)
+        scheduleDataProcessing()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-
+        print("Session will expire", Date())
     }
 
 }
@@ -89,8 +88,15 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
 private extension SleepSessionCoordinatorService {
 
     func scheduleDataProcessing() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            print("tick", Date().rawValue)
+            let device = WKInterfaceDevice.current()
+            device.play(.start)
+        })
         // NOTE: - Simulate Smart Alarm - show some notification after 1.5 minutes
         DispatchQueue.main.asyncAfter(deadline: .now() + defaultDurationTimeInterval - 30) {
+            print("DataProcessingStarted")
+            print(self.runtimeSession?.state == .running)
             if self.runtimeSession?.state == .running {
                 self.runtimeSession?.notifyUser(hapticType: .start)
             }
@@ -98,6 +104,7 @@ private extension SleepSessionCoordinatorService {
     }
 
     func logAccelerometerData() {
+        print("Accelerometer Data Logging Started")
         guard let lastSessionStart = lastSessionStart,  lastSessionStart.timeIntervalSinceNow > 0,
             let list = sensorRecorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() else { return }
 
