@@ -18,6 +18,7 @@
 		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
 		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
 		741E6FA3283BBE30006A3055 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 741E6FA2283BBE30006A3055 /* README.md */; };
+		741E6FA5283BC63A006A3055 /* OSLog+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741E6FA4283BC63A006A3055 /* OSLog+Extension.swift */; };
 		745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */; };
 		74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */; };
 		74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74840391282547EF009CF2A4 /* NotStartedSessionView.swift */; };
@@ -82,6 +83,7 @@
 		7414581D281C164E00374996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7414581E281C164E00374996 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		741E6FA2283BBE30006A3055 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		741E6FA4283BC63A006A3055 /* OSLog+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Extension.swift"; sourceTree = "<group>"; };
 		745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSessionCoordinatorService.swift; sourceTree = "<group>"; };
 		7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		74840391282547EF009CF2A4 /* NotStartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */,
 				7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */,
+				741E6FA4283BC63A006A3055 /* OSLog+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74145813281C164D00374996 /* NotificationController.swift in Sources */,
+				741E6FA5283BC63A006A3055 /* OSLog+Extension.swift in Sources */,
 				74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */,
 				74145811281C164D00374996 /* ContentView.swift in Sources */,
 				74145817281C164D00374996 /* ComplicationController.swift in Sources */,
