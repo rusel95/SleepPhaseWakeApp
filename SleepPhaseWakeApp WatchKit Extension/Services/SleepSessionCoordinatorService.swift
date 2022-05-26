@@ -16,19 +16,23 @@ final class SleepSessionCoordinatorService: NSObject {
     static let shared: SleepSessionCoordinatorService = SleepSessionCoordinatorService()
     
     private var runtimeSession: WKExtendedRuntimeSession?
-    private let sensorRecorder = CMSensorRecorder()
+    private var logTimer: Timer?
 
+    @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
 
-    private let defaultDurationTimeInterval = TimeInterval(2*60) // 2 minutes
+    private let sensorRecorder = CMSensorRecorder()
+
+    private let defaultDurationTimeInterval = TimeInterval(60) // 1 minute
     private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ruslanpopesku", category: "SleepSessionCoordinatorService")
+
 
     // MARK: - INIT
 
     private override init() { }
 
     deinit {
-        print("OOps")
+        log.error("SleepSessionCoordinatorService deinited")
     }
 
     // MARK: - METHODS
@@ -36,28 +40,33 @@ final class SleepSessionCoordinatorService: NSObject {
     func start() {
         guard runtimeSession?.state != .running else { return }
 
-        // create or recreate session if needed
+        WKInterfaceDevice.current().play(.click)
+        //NOTE: Create or recreate session if needed
         if runtimeSession == nil || runtimeSession?.state == .invalid {
             runtimeSession = WKExtendedRuntimeSession()
         }
         runtimeSession?.delegate = self
-        runtimeSession?.start(at: Date().addingTimeInterval(defaultDurationTimeInterval))
+        // NOTE: Should start 30 minutes before wake time
+        runtimeSession?.start(at: Date().addingTimeInterval(1))
 
         lastSessionStart = Date()
 
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self else { return }
+
                 self.sensorRecorder.recordAccelerometer(forDuration: self.defaultDurationTimeInterval)
             }
         }
     }
 
     func invalidate() {
-        logAccelerometerData()
-        lastSessionStart = nil
-
+        WKInterfaceDevice.current().play(.success)
+        logTimer?.invalidate()
         runtimeSession?.delegate = nil
         runtimeSession?.invalidate()
+        lastSessionStart = nil
+        state = .noStarted
     }
 
 }
@@ -70,49 +79,52 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
         log.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
+        invalidate()
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        log.info("Session started")
+        log.error("Session started")
+        WKInterfaceDevice.current().play(.click)
         scheduleDataProcessing()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         log.error("Session will expire")
+        WKInterfaceDevice.current().play(.failure)
     }
 
 }
 
-// MARK: - Helpers
+// MARK: - HELPERS
 
 private extension SleepSessionCoordinatorService {
 
     func scheduleDataProcessing() {
-        // NOTE: - Simulate Smart Alarm - show some notification after 1.5 minutes
-        DispatchQueue.main.asyncAfter(deadline: .now() + defaultDurationTimeInterval - 30) {
-            self.log.info("Data Processing started")
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                let device = WKInterfaceDevice.current()
-                device.play(.start)
-            })
-            if self.runtimeSession?.state == .running {
-                self.runtimeSession?.notifyUser(hapticType: .start)
+        log.info("Data Processing started")
+        logTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+            WKInterfaceDevice.current().play(.click)
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self,
+                      let list = self.sensorRecorder.accelerometerData(from: Date().addingTimeInterval(TimeInterval(-1)), to: Date())?.enumerated(),
+                      self.runtimeSession?.state == .running else { return }
+
+                let accelerometerDataArray = list.compactMap { $0.element as? CMRecordedAccelerometerData }
+                let totalAccelerationsArray = accelerometerDataArray.map {
+                        sqrt($0.acceleration.x * $0.acceleration.x
+                             + $0.acceleration.y * $0.acceleration.y
+                             + $0.acceleration.z * $0.acceleration.z)
+                    }
+                let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.5 }
+
+                // NOTE: - Stop Session if some moving existed
+                if bigAccelerationsArray.count > 0 {
+                    WKInterfaceDevice.current().play(.stop)
+                    // NOTE: - User must be notified that alarm started
+                    self.runtimeSession?.notifyUser(hapticType: .stop)
+                }
             }
-        }
-    }
-
-    func logAccelerometerData() {
-        log.info("Accelerometer Data Logging Started")
-        guard let lastSessionStart = lastSessionStart,  lastSessionStart.timeIntervalSinceNow > 0,
-            let list = sensorRecorder.accelerometerData(from: lastSessionStart, to: Date())?.enumerated() else { return }
-
-        for item in list {
-            guard let data = item.element as? CMRecordedAccelerometerData else { return }
-
-            let totalAcceleration = sqrt(data.acceleration.x * data.acceleration.x + data.acceleration.y * data.acceleration.y + data.acceleration.z * data.acceleration.z)
-            let accelerationExplanation = "\(data.startDate) \(data.acceleration.x) \(data.acceleration.y) \(data.acceleration.z) \(totalAcceleration)"
-            log.debug("\(accelerationExplanation)")
-        }
+        })
+        RunLoop.current.add(logTimer!, forMode: .common)
     }
 
 }

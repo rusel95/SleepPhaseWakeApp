@@ -14,8 +14,6 @@ struct StartedSessionView: View {
 
     @AppStorage("measureState") private var state: MeasureState = .started
 
-    @Environment(\.scenePhase) var scenePhase
-
     // MARK: - Body
 
     var body: some View {

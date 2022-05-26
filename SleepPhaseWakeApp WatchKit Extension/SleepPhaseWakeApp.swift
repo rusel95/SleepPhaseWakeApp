@@ -6,11 +6,17 @@
 //
 
 import SwiftUI
+import OSLog
 
 @main
 struct SleepPhaseWakeApp: App {
 
+    // MARK: - PROPERTY
     @Environment(\.scenePhase) var scenePhase
+
+    private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ruslanpopesku", category: "Lifecycle")
+
+    // MARK: - BODY
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -18,13 +24,13 @@ struct SleepPhaseWakeApp: App {
         }.onChange(of: scenePhase) { phase in
             switch phase {
             case .background:
-                print("App is in background")
+                log.debug("App is in background")
             case .active:
-                print("App is Active")
+                log.debug("App is Active")
             case .inactive:
-                print("App is Inactive")
+                log.debug("App is Inactive")
             @unknown default:
-                print("New App state not yet introduced")
+                log.debug("New App state not yet introduced")
             }
         }
 
