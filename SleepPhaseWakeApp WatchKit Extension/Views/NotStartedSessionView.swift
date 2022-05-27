@@ -12,12 +12,14 @@ struct NotStartedSessionView: View {
     // MARK: - Property
 
     @AppStorage("measureState") private var state: MeasureState = .noStarted
+    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
 
     @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 12
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
 
     private let dragButtonSideSize: CGFloat = 50.0
+    private let animationDuration: CGFloat = 0.3
 
     // MARK: - Body
 
@@ -27,7 +29,7 @@ struct NotStartedSessionView: View {
             VStack {
                 Spacer()
 
-                Text("Select Wake Up time:")
+                Text("Select Sleep duration")
                     .opacity(isAnimating ? 1 : 0)
                     .offset(y: isAnimating ? 0 : -20)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
@@ -94,7 +96,7 @@ struct NotStartedSessionView: View {
                                     withAnimation(.easeOut(duration: 0.3)) {
                                         if buttonOffset > dragViewWidth / 2.0 {
                                             buttonOffset = dragViewWidth - dragButtonSideSize
-                                            state = .started
+                                            triggerSleepSessionStart()
                                         } else {
                                             buttonOffset = 0
                                         }
@@ -120,6 +122,18 @@ struct NotStartedSessionView: View {
         }.onAppear {
             isAnimating = true
         }
+    }
+
+}
+
+// MARK: - HELPERS
+
+private extension NotStartedSessionView {
+
+    func triggerSleepSessionStart() {
+        // NOTE: - 8 hours default duration will be used before real selected time is not implemented
+        wakeUpDate = Date().addingTimeInterval(8*60*60)
+        state = .started
     }
 
 }
