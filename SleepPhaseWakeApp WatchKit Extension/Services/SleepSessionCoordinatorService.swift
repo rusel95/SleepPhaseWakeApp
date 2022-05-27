@@ -61,7 +61,6 @@ final class SleepSessionCoordinatorService: NSObject {
     }
 
     func invalidate() {
-        WKInterfaceDevice.current().play(.success)
         logTimer?.invalidate()
         runtimeSession?.delegate = nil
         runtimeSession?.invalidate()
@@ -78,12 +77,12 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession,
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
+        WKInterfaceDevice.current().play(.start)
         log.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
-        invalidate()
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        log.error("Session started")
+        log.info("Session started")
         WKInterfaceDevice.current().play(.click)
         scheduleDataProcessing()
     }
@@ -99,9 +98,17 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
 
 private extension SleepSessionCoordinatorService {
 
+    /* Due to WatchOS system limits max amount of RuntimeSession at Background is 30 minutes
+            => We have 30 minutes in summary to Determine the best moment to WakeUp
+            => Processing have to be started maximum 30 minutes before Wake UP time
+            => User's moves shows Not Deep phase of sleep + We can detect user's moves via Accelerometer
+            => Once User moved with hand for the first time while 30 minutes window we have to Wake him Up
+     */
     func scheduleDataProcessing() {
         log.info("Data Processing started")
-        logTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+
+        // NOTE: Current processing starts immediatelly
+        logTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             WKInterfaceDevice.current().play(.click)
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let self = self,
@@ -110,21 +117,24 @@ private extension SleepSessionCoordinatorService {
 
                 let accelerometerDataArray = list.compactMap { $0.element as? CMRecordedAccelerometerData }
                 let totalAccelerationsArray = accelerometerDataArray.map {
-                        sqrt($0.acceleration.x * $0.acceleration.x
-                             + $0.acceleration.y * $0.acceleration.y
-                             + $0.acceleration.z * $0.acceleration.z)
+                        sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2))
                     }
                 let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.5 }
+                self.log.info("\(bigAccelerationsArray.debugDescription)")
 
                 // NOTE: - Stop Session if some moving existed
                 if bigAccelerationsArray.count > 0 {
                     WKInterfaceDevice.current().play(.stop)
-                    // NOTE: - User must be notified that alarm started
+                    timer.invalidate()
+                    // NOTE: - User must be notified via System's Alarm tool about finishing
                     self.runtimeSession?.notifyUser(hapticType: .stop)
+                    self.invalidate()
                 }
             }
         })
-        RunLoop.current.add(logTimer!, forMode: .common)
+        if let logTimer = logTimer {
+            RunLoop.current.add(logTimer, forMode: .common)
+        }
     }
 
 }
