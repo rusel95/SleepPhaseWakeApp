@@ -21,6 +21,7 @@ final class SleepSessionCoordinatorService: NSObject {
     @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
+    @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
 
     private let sensorRecorder = CMSensorRecorder()
 
@@ -51,10 +52,9 @@ final class SleepSessionCoordinatorService: NSObject {
         runtimeSession?.delegate = self
 
         // NOTE: Should start 30 minutes before wake time
-        var processingSessionStartDate = wakeUpDate.addingTimeInterval(-30*60)
-        #if DEBUG
-        processingSessionStartDate = Date().addingTimeInterval(simulationDuration / 2.0) // 30 seconds before finish time
-        #endif
+        let processingSessionStartDate = isSimulationMode
+            ? Date().addingTimeInterval(simulationDuration / 2.0) // 30 seconds before finish time
+            : wakeUpDate.addingTimeInterval(-30 * 60)
         runtimeSession?.start(at: processingSessionStartDate)
 
         lastSessionStart = Date()
@@ -63,10 +63,7 @@ final class SleepSessionCoordinatorService: NSObject {
             DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let self = self else { return }
 
-                var accelerometerRecordingDuration = self.wakeUpDate.timeIntervalSinceNow
-                #if DEBUG
-                accelerometerRecordingDuration = self.simulationDuration
-                #endif
+                let accelerometerRecordingDuration = self.isSimulationMode ? self.simulationDuration : self.wakeUpDate.timeIntervalSinceNow
                 self.sensorRecorder.recordAccelerometer(forDuration: accelerometerRecordingDuration)
             }
         }
@@ -95,7 +92,7 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        logger.info("Session started")
+        logger.info("Session Started")
         WKInterfaceDevice.current().play(.click)
         scheduleDataProcessing()
     }
@@ -121,9 +118,9 @@ private extension SleepSessionCoordinatorService {
         logger.info("Data Processing started")
         processingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             // NOTE: click sound for testing puproses for clearness of background work
-            #if DEBUG
-            WKInterfaceDevice.current().play(.click)
-            #endif
+            if self.isSimulationMode {
+                WKInterfaceDevice.current().play(.click)
+            }
 
             DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let self = self,
@@ -134,7 +131,7 @@ private extension SleepSessionCoordinatorService {
                 let totalAccelerationsArray = accelerometerDataArray
                     .map { sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2)) }
 
-                // NOTE: 1.5 is a temporary constant - detects only fast moves approximately
+                // NOTE: 1.2 is a temporary constant - detects only fast moves approximately
                 let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.2 }
 
                 // NOTE: - Stop Session if some moving existed

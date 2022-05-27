@@ -13,6 +13,7 @@ struct NotStartedSessionView: View {
 
     @AppStorage("measureState") private var state: MeasureState = .noStarted
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
+    @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
 
     @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 12
     @State private var buttonOffset: CGFloat = 0
@@ -33,10 +34,13 @@ struct NotStartedSessionView: View {
                     .opacity(isAnimating ? 1 : 0)
                     .offset(y: isAnimating ? 0 : -20)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
+                    .gesture(LongPressGesture(minimumDuration: 1.0).onEnded { _ in
+                        isSimulationMode = !isSimulationMode
+                    })
 
                 Spacer()
 
-                Text("8 hour")
+                Text(isSimulationMode ? "1 minute" : "8 hour")
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
 
