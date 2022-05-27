@@ -19,8 +19,7 @@ struct NotStartedSessionView: View {
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
 
-    private let dragButtonSideSize: CGFloat = 50.0
-    private let animationDuration: CGFloat = 0.3
+    private let dragButtonSideSize: CGFloat = 66.0
 
     // MARK: - Body
 
@@ -30,7 +29,13 @@ struct NotStartedSessionView: View {
             VStack {
                 Spacer()
 
-                Text("Select Sleep duration")
+                HStack {
+                    Text("Select")
+                    Image(systemName: "moon.stars.fill")
+                        .foregroundColor(Color.white)
+                        .font(.system(size: 30, weight: .bold))
+                    Text("duration")
+                }
                     .opacity(isAnimating ? 1 : 0)
                     .offset(y: isAnimating ? 0 : -20)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
@@ -41,6 +46,7 @@ struct NotStartedSessionView: View {
                 Spacer()
 
                 Text(isSimulationMode ? "1 minute" : "8 hour")
+                    .font(.system(size: 30, weight: .bold))
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
 
@@ -59,9 +65,10 @@ struct NotStartedSessionView: View {
 
                     // 2. CALL-TO-ACTION (STATIC)
 
-                    Text("Sleep")
-                        .fontWeight(.bold)
-                        .offset(x: 18.0)
+                    Image(systemName: "bed.double")
+                        .foregroundColor(Color.white)
+                        .font(.system(size: 24, weight: .bold))
+                        .offset(x: 25)
 
                     // 3. CAPSULE (DYNAMIC WIDTH)
 
@@ -97,7 +104,7 @@ struct NotStartedSessionView: View {
                                     }
                                 })
                                 .onEnded({ _ in
-                                    withAnimation(.easeOut(duration: 0.3)) {
+                                    withAnimation(.easeOut(duration: Constants.defaultAnimationDuration)) {
                                         if buttonOffset > dragViewWidth / 2.0 {
                                             buttonOffset = dragViewWidth - dragButtonSideSize
                                             triggerSleepSessionStart()
@@ -107,7 +114,6 @@ struct NotStartedSessionView: View {
                                     }
                                 })
                         )
-
                         Spacer()
                     } //: HStack
                     .frame(width: dragViewWidth, alignment: .center)
@@ -116,9 +122,8 @@ struct NotStartedSessionView: View {
                 .frame(height: dragButtonSideSize, alignment: .center)
                 .opacity(isAnimating ? 1 : 0)
                 .offset(y: isAnimating ? 0 : 40)
-                .animation(.easeInOut(duration: 0.3), value: isAnimating)
-
-                Spacer()
+                .animation(.easeInOut(duration: Constants.defaultAnimationDuration),
+                           value: isAnimating)
             } //: VStack
             .padding(6)
             .ignoresSafeArea()
