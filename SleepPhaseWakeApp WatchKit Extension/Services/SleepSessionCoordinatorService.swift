@@ -54,7 +54,7 @@ final class SleepSessionCoordinatorService: NSObject {
         // NOTE: Should start 30 minutes before wake time
         let processingSessionStartDate = isSimulationMode
             ? Date().addingTimeInterval(simulationDuration / 2.0) // 30 seconds before finish time
-            : wakeUpDate.addingTimeInterval(-30 * 60)
+        : wakeUpDate.addingTimeInterval(-Constants.defaultProcessingDuration)
         runtimeSession?.start(at: processingSessionStartDate)
 
         lastSessionStart = Date()

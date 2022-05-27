@@ -13,19 +13,48 @@ struct StartedSessionView: View {
     // MARK: - Property
 
     @AppStorage("measureState") private var state: MeasureState = .started
+    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
+
+    private var wakeUpWindowsDescription: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let intervalStartString = formatter.string(from: wakeUpDate.addingTimeInterval(-Constants.defaultProcessingDuration))
+        let intervalEndString = formatter.string(from: wakeUpDate)
+        return "\(intervalStartString) - \(intervalEndString)"
+    }
 
     // MARK: - Body
 
     var body: some View {
         VStack {
             Spacer()
-            Button("Stop") {
-                withAnimation(.easeIn(duration: 0.3)) {
-                    state = .noStarted
-                }
-                stopRecording()
-            }
+
+            Image(systemName: "alarm")
+                .foregroundColor(Color.white)
+                .font(.system(size: 55, weight: .bold))
+
             Spacer()
+
+            Text("is set between")
+                .fontWeight(.regular)
+
+            Spacer()
+
+            Text(wakeUpWindowsDescription)
+                .fontWeight(.bold)
+
+            Spacer()
+            
+            Button(
+                role: .cancel,
+                action: {
+                    withAnimation(.easeIn(duration: Constants.defaultAnimationDuration)) {
+                        state = .noStarted
+                    }
+                    triggerSleepSessionStop()
+                }, label: {
+                    Label("stop", systemImage: "stop.fill")
+                })
         } //: VStack
         .padding()
         .ignoresSafeArea()
@@ -41,7 +70,7 @@ struct StartedSessionView: View {
 
 private extension StartedSessionView {
 
-    func stopRecording() {
+    func triggerSleepSessionStop() {
         SleepSessionCoordinatorService.shared.invalidate()
     }
 
