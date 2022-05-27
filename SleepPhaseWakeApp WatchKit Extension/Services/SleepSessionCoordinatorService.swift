@@ -16,7 +16,7 @@ final class SleepSessionCoordinatorService: NSObject {
     static let shared: SleepSessionCoordinatorService = SleepSessionCoordinatorService()
     
     private var runtimeSession: WKExtendedRuntimeSession?
-    private var logTimer: Timer?
+    private var processingTimer: Timer?
 
     @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
@@ -24,7 +24,7 @@ final class SleepSessionCoordinatorService: NSObject {
     private let sensorRecorder = CMSensorRecorder()
 
     private let defaultDurationTimeInterval = TimeInterval(60) // 1 minute
-    private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ruslanpopesku", category: "SleepSessionCoordinatorService")
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ruslanpopesku", category: "SleepSessionCoordinatorService")
 
 
     // MARK: - INIT
@@ -32,7 +32,7 @@ final class SleepSessionCoordinatorService: NSObject {
     private override init() { }
 
     deinit {
-        log.error("SleepSessionCoordinatorService deinited")
+        logger.error("SleepSessionCoordinatorService deinited")
     }
 
     // MARK: - METHODS
@@ -40,19 +40,22 @@ final class SleepSessionCoordinatorService: NSObject {
     func start() {
         guard runtimeSession?.state != .running else { return }
 
-        WKInterfaceDevice.current().play(.click)
-        //NOTE: Create or recreate session if needed
+        logger.info("Sleep Session started")
+
+        WKInterfaceDevice.current().play(.start)
+
+        // NOTE: Create or recreate session if needed
         if runtimeSession == nil || runtimeSession?.state == .invalid {
             runtimeSession = WKExtendedRuntimeSession()
         }
         runtimeSession?.delegate = self
-        // NOTE: Should start 30 minutes before wake time
-        runtimeSession?.start(at: Date().addingTimeInterval(1))
+        // NOTE: Should start 30 minutes before wake time - currently it is set to 30 second for testing puproses
+        runtimeSession?.start(at: Date().addingTimeInterval(defaultDurationTimeInterval / 2.0))
 
         lastSessionStart = Date()
 
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            DispatchQueue.global(qos: .background).async { [weak self] in
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let self = self else { return }
 
                 self.sensorRecorder.recordAccelerometer(forDuration: self.defaultDurationTimeInterval)
@@ -61,7 +64,8 @@ final class SleepSessionCoordinatorService: NSObject {
     }
 
     func invalidate() {
-        logTimer?.invalidate()
+        logger.info("Sleep Session Stopped")
+        processingTimer?.invalidate()
         runtimeSession?.delegate = nil
         runtimeSession?.invalidate()
         lastSessionStart = nil
@@ -78,17 +82,17 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
         WKInterfaceDevice.current().play(.start)
-        log.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
+        logger.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        log.info("Session started")
+        logger.info("Session started")
         WKInterfaceDevice.current().play(.click)
         scheduleDataProcessing()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        log.error("Session will expire")
+        logger.error("Session will expire")
         WKInterfaceDevice.current().play(.failure)
     }
 
@@ -105,25 +109,27 @@ private extension SleepSessionCoordinatorService {
             => Once User moved with hand for the first time while 30 minutes window we have to Wake him Up
      */
     func scheduleDataProcessing() {
-        log.info("Data Processing started")
+        logger.info("Data Processing started")
 
-        // NOTE: Current processing starts immediatelly
-        logTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+        processingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            // NOTE: click sound for testing puproses
             WKInterfaceDevice.current().play(.click)
-            DispatchQueue.global(qos: .background).async { [weak self] in
+
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let self = self,
                       let list = self.sensorRecorder.accelerometerData(from: Date().addingTimeInterval(TimeInterval(-1)), to: Date())?.enumerated(),
                       self.runtimeSession?.state == .running else { return }
 
                 let accelerometerDataArray = list.compactMap { $0.element as? CMRecordedAccelerometerData }
-                let totalAccelerationsArray = accelerometerDataArray.map {
-                        sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2))
-                    }
-                let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.5 }
-                self.log.info("\(bigAccelerationsArray.debugDescription)")
+                let totalAccelerationsArray = accelerometerDataArray
+                    .map { sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2)) }
+
+                // NOTE: 1.5 is a temporary constant - detects only fast moves approximately
+                let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.3 }
 
                 // NOTE: - Stop Session if some moving existed
                 if bigAccelerationsArray.count > 0 {
+                    self.logger.info("\(bigAccelerationsArray.debugDescription)")
                     WKInterfaceDevice.current().play(.stop)
                     timer.invalidate()
                     // NOTE: - User must be notified via System's Alarm tool about finishing
@@ -132,7 +138,7 @@ private extension SleepSessionCoordinatorService {
                 }
             }
         })
-        if let logTimer = logTimer {
+        if let logTimer = processingTimer {
             RunLoop.current.add(logTimer, forMode: .common)
         }
     }
