@@ -25,15 +25,13 @@ struct NotStartedSessionView: View {
 
     var body: some View {
         ZStack {
-            Color.teal.ignoresSafeArea()
             VStack {
                 Spacer()
 
                 HStack {
                     Text("Select")
                     Image(systemName: "moon.stars.fill")
-                        .foregroundColor(Color.white)
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: 25, weight: .bold))
                     Text("duration")
                 }
                     .opacity(isAnimating ? 1 : 0)
@@ -46,7 +44,8 @@ struct NotStartedSessionView: View {
                 Spacer()
 
                 Text(isSimulationMode ? "1 minute" : "8 hour")
-                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.white)
+                    .font(.system(size: 28, weight: .bold))
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
 
@@ -57,16 +56,15 @@ struct NotStartedSessionView: View {
                 ZStack {
                     // 1. CAPSULES (STATIC)
                     Capsule()
-                        .fill(Color.white.opacity(0.2))
+                        .fill(Color("quaternary"))
 
                     Capsule()
-                        .fill(Color.white.opacity(0.4))
+                        .fill(Color.white.opacity(0.2))
                         .padding(4)
 
                     // 2. CALL-TO-ACTION (STATIC)
 
                     Image(systemName: "bed.double")
-                        .foregroundColor(Color.white)
                         .font(.system(size: 24, weight: .bold))
                         .offset(x: 25)
 
@@ -74,7 +72,7 @@ struct NotStartedSessionView: View {
 
                     HStack {
                         Capsule()
-                            .fill(Color.white)
+                            .fill(Color.white.opacity(0.2))
                             .frame(width: buttonOffset + dragButtonSideSize, alignment: .center)
                         Spacer()
                     }
@@ -86,7 +84,7 @@ struct NotStartedSessionView: View {
                                 .fill(Color.white)
 
                             Circle()
-                                .fill(Color.teal)
+                                .fill(Color.secondary)
                                 .padding(4)
 
                             Image(systemName: "chevron.right.2")
@@ -127,10 +125,11 @@ struct NotStartedSessionView: View {
             } //: VStack
             .padding(6)
             .ignoresSafeArea()
-            .background(Color.teal)
         }.onAppear {
             isAnimating = true
         }
+        .foregroundColor(Color.gray)
+        .background(Constants.defaultBackgroundColor)
     }
 
 }

@@ -30,8 +30,9 @@ struct StartedSessionView: View {
             Spacer()
 
             Image(systemName: "alarm")
-                .foregroundColor(Color.white)
-                .font(.system(size: 55, weight: .bold))
+                .symbolRenderingMode(.hierarchical)
+                .foregroundColor(Color.teal)
+                .font(.system(size: 56, weight: .semibold))
 
             Spacer()
 
@@ -53,12 +54,13 @@ struct StartedSessionView: View {
                     }
                     triggerSleepSessionStop()
                 }, label: {
-                    Label("stop", systemImage: "stop.fill")
+                    Label("STOP", systemImage: "stop.fill")
                 })
         } //: VStack
-        .padding()
+        .padding(2)
         .ignoresSafeArea()
-        .background(Color.indigo)
+        .foregroundColor(Color.gray)
+        .background(Constants.defaultBackgroundColor)
         .onAppear {
             SleepSessionCoordinatorService.shared.start()
         }
