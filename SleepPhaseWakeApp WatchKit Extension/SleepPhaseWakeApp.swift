@@ -33,8 +33,6 @@ struct SleepPhaseWakeApp: App {
                 log.debug("New App state not yet introduced")
             }
         }
-
-        WKNotificationScene(controller: NotificationController.self, category: "myCategory")
     }
     
 }

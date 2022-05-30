@@ -12,8 +12,6 @@
 		7414580A281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7414580F281C164D00374996 /* SleepPhaseWakeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */; };
 		74145811281C164D00374996 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145810281C164D00374996 /* ContentView.swift */; };
-		74145813281C164D00374996 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145812281C164D00374996 /* NotificationController.swift */; };
-		74145815281C164D00374996 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145814281C164D00374996 /* NotificationView.swift */; };
 		74145817281C164D00374996 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74145816281C164D00374996 /* ComplicationController.swift */; };
 		74145819281C164E00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145818281C164E00374996 /* Assets.xcassets */; };
 		7414581C281C164E00374996 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414581B281C164E00374996 /* Preview Assets.xcassets */; };
@@ -76,8 +74,6 @@
 		74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SleepPhaseWakeApp WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepPhaseWakeApp.swift; sourceTree = "<group>"; };
 		74145810281C164D00374996 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		74145812281C164D00374996 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		74145814281C164D00374996 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		74145816281C164D00374996 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		74145818281C164E00374996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7414581B281C164E00374996 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -323,7 +319,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74145813281C164D00374996 /* NotificationController.swift in Sources */,
 				745420BB2840FFF5002E8278 /* Constants.swift in Sources */,
 				74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */,
 				74145811281C164D00374996 /* ContentView.swift in Sources */,
@@ -333,7 +328,6 @@
 				748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */,
 				748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */,
 				7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */,
-				74145815281C164D00374996 /* NotificationView.swift in Sources */,
 				745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
