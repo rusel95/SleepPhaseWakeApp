@@ -24,6 +24,7 @@
 		74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74840391282547EF009CF2A4 /* NotStartedSessionView.swift */; };
 		748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748403932825497D009CF2A4 /* StartedSessionView.swift */; };
 		748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */; };
+		7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		74840391282547EF009CF2A4 /* NotStartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionView.swift; sourceTree = "<group>"; };
 		748403932825497D009CF2A4 /* StartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedSessionView.swift; sourceTree = "<group>"; };
 		748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMSensorDataList+Extension.swift"; sourceTree = "<group>"; };
+		7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedSessionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			children = (
 				74840391282547EF009CF2A4 /* NotStartedSessionView.swift */,
 				748403932825497D009CF2A4 /* StartedSessionView.swift */,
+				7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */,
 				748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */,
 				748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */,
+				7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */,
 				74145815281C164D00374996 /* NotificationView.swift in Sources */,
 				745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */,
 			);

@@ -9,6 +9,14 @@ import SwiftUI
 import CoreMotion
 import OSLog
 
+enum MeasureState: String {
+
+    case noStarted
+    case started
+    case finished
+
+}
+
 final class SleepSessionCoordinatorService: NSObject {
 
     // MARK: - PROPERTY
@@ -141,7 +149,7 @@ private extension SleepSessionCoordinatorService {
                     timer.invalidate()
                     // NOTE: - User must be notified via System's Alarm tool about finishing
                     self.runtimeSession?.notifyUser(hapticType: .stop)
-                    self.invalidate()
+                    self.state = .finished
                 }
             }
         })

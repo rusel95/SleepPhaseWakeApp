@@ -46,18 +46,16 @@ struct StartedSessionView: View {
 
             Spacer()
             
-            Button(
-                role: .cancel,
-                action: {
-                    withAnimation(.easeIn(duration: Constants.defaultAnimationDuration)) {
-                        state = .noStarted
-                    }
-                    triggerSleepSessionStop()
-                }, label: {
-                    Label("STOP", systemImage: "stop.fill")
-                })
+            Button(role: .cancel,
+                   action: {
+                withAnimation(.easeIn(duration: Constants.defaultAnimationDuration)) {
+                    state = .noStarted
+                }
+                triggerSleepSessionStop()
+            }, label: {
+                Label("STOP", systemImage: "stop.fill")
+            })
         } //: VStack
-        .padding(2)
         .ignoresSafeArea()
         .foregroundColor(Color.gray)
         .background(Constants.defaultBackgroundColor)

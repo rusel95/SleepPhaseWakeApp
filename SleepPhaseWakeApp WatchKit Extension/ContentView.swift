@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum MeasureState: String {
-    case noStarted
-    case started
-}
-
 struct ContentView: View {
 
     // MARK: - Property
@@ -27,6 +22,8 @@ struct ContentView: View {
             NotStartedSessionView()
         case .started:
             StartedSessionView()
+        case .finished:
+            FinishedSessionView()
         }
     }
 
