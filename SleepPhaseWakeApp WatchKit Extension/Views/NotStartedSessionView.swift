@@ -30,7 +30,8 @@ struct NotStartedSessionView: View {
 
                 HStack {
                     Text("Select")
-                    Image(systemName: "moon.stars.fill")
+                    Image(systemName: "moon.fill")
+                        .foregroundColor(.teal)
                         .font(.system(size: 25, weight: .bold))
                     Text("duration")
                 }
@@ -56,7 +57,7 @@ struct NotStartedSessionView: View {
                 ZStack {
                     // 1. CAPSULES (STATIC)
                     Capsule()
-                        .fill(Color("quaternary"))
+                        .fill(Color.white.opacity(0.2))
 
                     Capsule()
                         .fill(Color.white.opacity(0.2))

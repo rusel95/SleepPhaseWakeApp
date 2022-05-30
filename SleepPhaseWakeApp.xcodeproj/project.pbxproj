@@ -134,9 +134,7 @@
 				74145810281C164D00374996 /* ContentView.swift */,
 				745BC7EC28351BBA005134B2 /* Services */,
 				741E6FA6283BC72E006A3055 /* Views */,
-				74145812281C164D00374996 /* NotificationController.swift */,
-				74145814281C164D00374996 /* NotificationView.swift */,
-				74145816281C164D00374996 /* ComplicationController.swift */,
+				7497FF612844CB4E004DA367 /* Complications */,
 				748ECE4E2822866C00BD8F11 /* Helpers */,
 				745BC7ED2835249F005134B2 /* Resources */,
 				7414581A281C164E00374996 /* Preview Content */,
@@ -189,6 +187,14 @@
 				745420BA2840FFF5002E8278 /* Constants.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		7497FF612844CB4E004DA367 /* Complications */ = {
+			isa = PBXGroup;
+			children = (
+				74145816281C164D00374996 /* ComplicationController.swift */,
+			);
+			path = Complications;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

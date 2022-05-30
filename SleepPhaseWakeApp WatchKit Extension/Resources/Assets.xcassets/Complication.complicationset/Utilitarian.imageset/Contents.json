@@ -1,7 +1,21 @@
 {
   "images" : [
     {
-      "idiom" : "watch"
+      "filename" : "Screenshot 2022-05-27 at 17.40.08.png",
+      "idiom" : "watch",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "40.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : "<=145"
+    },
+    {
+      "filename" : "Screenshot 2022-05-27 at 17.40.08-2.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : ">183"
     }
   ],
   "info" : {
@@ -9,7 +23,6 @@
     "version" : 1
   },
   "properties" : {
-    "auto-scaling" : "auto",
-    "preserves-vector-representation" : true
+    "auto-scaling" : "auto"
   }
 }

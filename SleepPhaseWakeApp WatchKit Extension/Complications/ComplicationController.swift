@@ -7,18 +7,17 @@
 
 import ClockKit
 
-
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Complication Configuration
 
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "SleepPhaseWakeApp", supportedFamilies: CLKComplicationFamily.allCases)
-            // Multiple complication support can be added here with more descriptors
+            CLKComplicationDescriptor(
+                identifier: "ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension",
+                displayName: "Sleep Phase",
+                supportedFamilies: [.circularSmall, .modularSmall, .utilitarianSmall])
         ]
-        
-        // Call the handler with the currently supported complication descriptors
         handler(descriptors)
     }
     
@@ -53,7 +52,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Sample Templates
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
-        // This method will be called once per supported complication, and the results will be cached
-        handler(nil)
+        switch complication.family {
+        case .circularSmall:
+            handler(CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!)))
+        case .modularSmall:
+            handler(CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Modular")!)))
+        case .utilitarianSmall:
+            handler(CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)))
+        default:
+            handler(nil)
+        }
     }
+    
 }
