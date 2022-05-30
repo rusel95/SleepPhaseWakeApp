@@ -124,11 +124,11 @@ struct NotStartedSessionView: View {
                 .animation(.easeInOut(duration: Constants.defaultAnimationDuration),
                            value: isAnimating)
             } //: VStack
-            .padding(6)
             .ignoresSafeArea()
         }.onAppear {
             isAnimating = true
         }
+        .padding(2)
         .foregroundColor(Color.gray)
         .background(Constants.defaultBackgroundColor)
     }

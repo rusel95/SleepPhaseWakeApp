@@ -56,6 +56,7 @@ private extension FinishedSessionView {
     func triggerWakeUp() {
         SleepSessionCoordinatorService.shared.invalidate()
     }
+
 }
 
 

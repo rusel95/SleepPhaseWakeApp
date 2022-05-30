@@ -135,6 +135,12 @@ private extension SleepSessionCoordinatorService {
                       let list = self.sensorRecorder.accelerometerData(from: Date().addingTimeInterval(TimeInterval(-1)), to: Date())?.enumerated(),
                       self.runtimeSession?.state == .running else { return }
 
+                /* Phase detection Version 0.0.1
+                    Currently we are using just very simple shake detection for discovering Sleep Phase - Once user moved we Wake him up
+                    In the futire is is possible that we will use:
+                       - Heart Rate
+                       - HealthKit sleep analyse
+                */
                 let accelerometerDataArray = list.compactMap { $0.element as? CMRecordedAccelerometerData }
                 let totalAccelerationsArray = accelerometerDataArray
                     .map { sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2)) }

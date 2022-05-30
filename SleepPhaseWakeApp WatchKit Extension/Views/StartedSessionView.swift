@@ -56,9 +56,10 @@ struct StartedSessionView: View {
                 Label("STOP", systemImage: "stop.fill")
             })
         } //: VStack
-        .ignoresSafeArea()
+        .padding(4)
         .foregroundColor(Color.gray)
         .background(Constants.defaultBackgroundColor)
+        .ignoresSafeArea()
         .onAppear {
             SleepSessionCoordinatorService.shared.start()
         }
