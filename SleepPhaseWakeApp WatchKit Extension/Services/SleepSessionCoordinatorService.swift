@@ -51,7 +51,9 @@ final class SleepSessionCoordinatorService: NSObject {
 
         logger.info("Sleep Session started")
 
-        WKInterfaceDevice.current().play(.start)
+        isSimulationMode {
+            WKInterfaceDevice.current().play(.start)
+        }
 
         // NOTE: Create or recreate session if needed
         if runtimeSession == nil || runtimeSession?.state == .invalid {
@@ -95,19 +97,25 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession,
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
-        WKInterfaceDevice.current().play(.start)
         logger.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
+        if isSimulationMode {
+            WKInterfaceDevice.current().play(.stop)
+        }
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         logger.info("Session Started")
-        WKInterfaceDevice.current().play(.click)
+        if isSimulationMode {
+            WKInterfaceDevice.current().play(.click)
+        }
         scheduleDataProcessing()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         logger.error("Session will expire")
-        WKInterfaceDevice.current().play(.failure)
+        if isSimulationMode {
+            WKInterfaceDevice.current().play(.failure)
+        }
     }
 
 }
@@ -151,7 +159,9 @@ private extension SleepSessionCoordinatorService {
                 // NOTE: - Stop Session if some moving existed
                 if bigAccelerationsArray.count > 0 {
                     self.logger.info("\(bigAccelerationsArray.debugDescription)")
-                    WKInterfaceDevice.current().play(.stop)
+                    if self.isSimulationMode {
+                        WKInterfaceDevice.current().play(.stop)
+                    }
                     timer.invalidate()
                     // NOTE: - User must be notified via System's Alarm tool about finishing
                     self.runtimeSession?.notifyUser(hapticType: .stop)
