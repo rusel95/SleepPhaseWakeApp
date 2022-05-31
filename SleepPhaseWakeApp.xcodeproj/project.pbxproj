@@ -493,7 +493,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -526,7 +526,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -551,7 +551,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = SleepPhaseWakeApp_WatchKit_Extension;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp;
 				PRODUCT_NAME = "Sleep Phase";
 				SDKROOT = watchos;
@@ -576,7 +576,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = SleepPhaseWakeApp_WatchKit_Extension;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp.watchkitapp;
 				PRODUCT_NAME = "Sleep Phase";
 				SDKROOT = watchos;
@@ -595,7 +595,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";
 				SWIFT_VERSION = 5.0;
@@ -609,7 +609,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
 				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";
 				SWIFT_VERSION = 5.0;
