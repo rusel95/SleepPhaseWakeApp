@@ -29,6 +29,7 @@ struct FinishedSessionView: View {
                 .foregroundColor(.white)
                 .font(.system(size: 24, weight: .semibold))
                 .frame(alignment: .center)
+                .lineLimit(1)
                 .minimumScaleFactor(0.5)
 
             Spacer()
@@ -42,11 +43,11 @@ struct FinishedSessionView: View {
                 Label("WAKE UP", systemImage: "bolt.fill")
                     .font(.system(size: 20, weight: .semibold))
             })
-
             Spacer()
         }
+        .padding()
         .background(Constants.defaultBackgroundColor)
-        .ignoresSafeArea()
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 
 }
