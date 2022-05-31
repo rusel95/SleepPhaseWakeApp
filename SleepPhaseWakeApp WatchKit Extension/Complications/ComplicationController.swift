@@ -6,6 +6,7 @@
 //
 
 import ClockKit
+import SwiftUI
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
@@ -16,7 +17,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             CLKComplicationDescriptor(
                 identifier: "ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension",
                 displayName: "Sleep Phase",
-                supportedFamilies: [.circularSmall, .modularSmall, .utilitarianSmall])
+                supportedFamilies: [.graphicCorner, .circularSmall, .modularSmall, .utilitarianSmall])
         ]
         handler(descriptors)
     }
@@ -41,7 +42,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         // Call the handler with the current timeline entry
-        handler(nil)
+        guard let template = getTemplate(for: complication) else {
+            return handler(nil)
+        }
+        handler(CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template))
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
@@ -52,15 +56,21 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Sample Templates
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+        handler(getTemplate(for: complication))
+    }
+
+    func getTemplate(for complication: CLKComplication) -> CLKComplicationTemplate? {
         switch complication.family {
         case .circularSmall:
-            handler(CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!)))
+            return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!))
         case .modularSmall:
-            handler(CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Modular")!)))
+            return CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Modular")!))
         case .utilitarianSmall:
-            handler(CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!)))
+            return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!))
+        case .graphicCorner:
+            return CLKComplicationTemplateGraphicCornerCircularView(ShortcutComplication())
         default:
-            handler(nil)
+            return nil
         }
     }
     

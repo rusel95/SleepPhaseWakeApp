@@ -51,7 +51,7 @@ final class SleepSessionCoordinatorService: NSObject {
 
         logger.info("Sleep Session started")
 
-        isSimulationMode {
+        if isSimulationMode {
             WKInterfaceDevice.current().play(.start)
         }
 
