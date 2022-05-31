@@ -28,6 +28,8 @@ struct FinishedSessionView: View {
             Text("Good Morning!")
                 .foregroundColor(.white)
                 .font(.system(size: 24, weight: .semibold))
+                .frame(alignment: .center)
+                .minimumScaleFactor(0.5)
 
             Spacer()
 

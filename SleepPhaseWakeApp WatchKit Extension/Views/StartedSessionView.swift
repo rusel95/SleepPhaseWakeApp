@@ -15,10 +15,15 @@ struct StartedSessionView: View {
     @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
 
+    @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
+
     private var wakeUpWindowsDescription: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        let intervalStartString = formatter.string(from: wakeUpDate.addingTimeInterval(-Constants.defaultProcessingDuration))
+        // NOTE: Simulation Processing Time is 30 seconds
+        let processingIntervalDuration = isSimulationMode ? 30 : Constants.defaultProcessingDuration
+        let minimumWakeUpDate = wakeUpDate.addingTimeInterval(-processingIntervalDuration)
+        let intervalStartString = formatter.string(from: minimumWakeUpDate)
         let intervalEndString = formatter.string(from: wakeUpDate)
         return "\(intervalStartString) - \(intervalEndString)"
     }
@@ -56,10 +61,9 @@ struct StartedSessionView: View {
                 Label("STOP", systemImage: "stop.fill")
             })
         } //: VStack
-        .padding(4)
         .foregroundColor(Color.gray)
-        .background(Constants.defaultBackgroundColor)
-        .ignoresSafeArea()
+        .padding()
+        .ignoresSafeArea(.container, edges: .bottom)
         .onAppear {
             SleepSessionCoordinatorService.shared.start()
         }

@@ -14,43 +14,59 @@ struct NotStartedSessionView: View {
     @AppStorage("measureState") private var state: MeasureState = .noStarted
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
     @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
+    @AppStorage("selectedHour") private var selectedHour: Int = 8
+    @AppStorage("selectedMinute") private var selectedMinute: Int = 0
 
-    @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 12
+    @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 8
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
 
-    private let dragButtonSideSize: CGFloat = 66.0
+    private var hours: [String] = (0 ... 24).map { String($0) }
+    private var minutes: [String] = (0 ... 60).map { String($0) }
+
+    private let dragButtonSideSize: CGFloat = 55.0
 
     // MARK: - Body
 
     var body: some View {
         ZStack {
             VStack {
-                Spacer()
-
-                HStack {
-                    Text("Select")
-                    Image(systemName: "moon.fill")
-                        .foregroundColor(.teal)
-                        .font(.system(size: 25, weight: .bold))
-                    Text("duration")
-                }
+                Text("Select wake up time:")
                     .opacity(isAnimating ? 1 : 0)
                     .offset(y: isAnimating ? 0 : -20)
                     .animation(.easeInOut(duration: 1), value: isAnimating)
+                    .frame(alignment: .center)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                     .gesture(LongPressGesture(minimumDuration: 1.0).onEnded { _ in
                         isSimulationMode = !isSimulationMode
                     })
 
-                Spacer()
+                Spacer(minLength: 10)
 
-                Text(isSimulationMode ? "1 minute" : "8 hour")
-                    .foregroundColor(.white)
-                    .font(.system(size: 28, weight: .bold))
-                    .opacity(isAnimating ? 1 : 0)
-                    .animation(.easeInOut(duration: 1), value: isAnimating)
+                HStack(alignment: .center) {
+                    Picker(selection: $selectedHour) {
+                        ForEach(0 ..< hours.count) {
+                            Text(hours[$0])
+                        }
+                    } label: { }
 
-                Spacer()
+                    Text (" : ")
+                        .frame(alignment: .center)
+                        .offset(y: -2)
+
+                    Picker(selection: $selectedMinute) {
+                        ForEach(0 ..< minutes.count) {
+                            Text(minutes[$0])
+                        }
+                    } label: { }
+                }
+                .foregroundColor(.white)
+                .font(.system(size: 20, weight: .bold))
+                .opacity(isAnimating ? 1 : 0)
+                .animation(.easeInOut(duration: 1), value: isAnimating)
+
+                Spacer(minLength: 10)
 
                 // MARK: Drag View
 
@@ -65,15 +81,15 @@ struct NotStartedSessionView: View {
 
                     // 2. CALL-TO-ACTION (STATIC)
 
-                    Image(systemName: "bed.double")
-                        .font(.system(size: 24, weight: .bold))
-                        .offset(x: 25)
+                    Image(systemName: isSimulationMode ? "testtube.2" : "bed.double.fill")
+                        .font(.system(size: 26, weight: .bold))
+                        .offset(x: 20)
 
                     // 3. CAPSULE (DYNAMIC WIDTH)
 
                     HStack {
                         Capsule()
-                            .fill(Color.white.opacity(0.2))
+                            .fill(Color.white)
                             .frame(width: buttonOffset + dragButtonSideSize, alignment: .center)
                         Spacer()
                     }
@@ -124,13 +140,13 @@ struct NotStartedSessionView: View {
                 .animation(.easeInOut(duration: Constants.defaultAnimationDuration),
                            value: isAnimating)
             } //: VStack
-            .ignoresSafeArea()
-        }.onAppear {
+        }
+        .foregroundColor(Color.gray)
+        .padding(4)
+        .ignoresSafeArea(.container, edges: .bottom)
+        .onAppear {
             isAnimating = true
         }
-        .padding(2)
-        .foregroundColor(Color.gray)
-        .background(Constants.defaultBackgroundColor)
     }
 
 }
@@ -140,8 +156,19 @@ struct NotStartedSessionView: View {
 private extension NotStartedSessionView {
 
     func triggerSleepSessionStart() {
-        // NOTE: - 8 hours default duration will be used before real selected time is not implemented
-        wakeUpDate = Date().addingTimeInterval(8*60*60)
+        if let currentDayWakeUpDate = Calendar.current.date(bySettingHour: selectedHour,
+                                                            minute: selectedMinute,
+                                                            second: 0,
+                                                            of: Date()),
+           currentDayWakeUpDate > Date() {
+            wakeUpDate = currentDayWakeUpDate
+        } else if let nextDayDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()),
+                  let nextDayWakeUpDate = Calendar.current.date(bySettingHour: selectedHour,
+                                                                minute: selectedMinute,
+                                                                second: 0,
+                                                                of: Calendar.current.startOfDay(for: nextDayDate)) {
+            wakeUpDate = nextDayWakeUpDate
+        }
         state = .started
     }
 
@@ -149,6 +176,7 @@ private extension NotStartedSessionView {
 
 // MARK: - Preview
 
+#if DEBUG
 struct NotStartedSessionView_Previews: PreviewProvider {
 
     static var previews: some View {
@@ -156,3 +184,4 @@ struct NotStartedSessionView_Previews: PreviewProvider {
     }
 
 }
+#endif
