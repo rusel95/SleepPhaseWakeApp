@@ -17,7 +17,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             CLKComplicationDescriptor(
                 identifier: "ruslanpopesku.SleepPhaseWakeApp.watchkitapp.watchkitextension",
                 displayName: "Sleep Phase",
-                supportedFamilies: [.graphicCorner, .circularSmall, .modularSmall, .utilitarianSmall])
+                supportedFamilies: [.graphicCorner, .circularSmall, .modularSmall])
         ]
         handler(descriptors)
     }
@@ -64,9 +64,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .circularSmall:
             return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!))
         case .modularSmall:
-            return CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Modular")!))
-        case .utilitarianSmall:
-            return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Utilitarian")!))
+            return CLKComplicationTemplateModularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Modular")!))
         case .graphicCorner:
             return CLKComplicationTemplateGraphicCornerCircularView(ShortcutComplication())
         default:
