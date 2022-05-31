@@ -21,8 +21,8 @@ struct NotStartedSessionView: View {
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimating: Bool = false
 
-    private var hours: [String] = (0 ... 24).map { String($0) }
-    private var minutes: [String] = (0 ... 60).map { String($0) }
+    private var hours: [String] = (0 ... 23).map { String($0) }
+    private var minutes: [String] = (0 ... 59).map { String($0) }
 
     private let dragButtonSideSize: CGFloat = 55.0
 
