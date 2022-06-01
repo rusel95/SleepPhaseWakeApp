@@ -14,8 +14,9 @@ struct StartedSessionView: View {
 
     @AppStorage("measureState") private var state: MeasureState = .started
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
-
     @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
+
+    @State private var isAlertPresented: Bool = false
 
     private var wakeUpWindowsDescription: String {
         let formatter = DateFormatter()
@@ -66,7 +67,9 @@ struct StartedSessionView: View {
         .ignoresSafeArea(.container, edges: .bottom)
         .onAppear {
             SleepSessionCoordinatorService.shared.start()
+            showLowBatteryLevelAlertIfNeeded()
         }
+        .alert("Minimum recommened battery level for proper Sleep Phase detection is 20%", isPresented: $isAlertPresented) {}
     }
 
 }
@@ -77,6 +80,14 @@ private extension StartedSessionView {
 
     func triggerSleepSessionStop() {
         SleepSessionCoordinatorService.shared.invalidate()
+    }
+
+    func showLowBatteryLevelAlertIfNeeded() {
+        WKInterfaceDevice.current().isBatteryMonitoringEnabled = true
+        if WKInterfaceDevice.current().batteryLevel < 0.2 {
+            isAlertPresented = true
+        }
+        WKInterfaceDevice.current().isBatteryMonitoringEnabled = false
     }
 
 }
