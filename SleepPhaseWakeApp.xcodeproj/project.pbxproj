@@ -414,7 +414,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Debug;
 		};
@@ -468,7 +468,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Release;
 		};
@@ -594,7 +594,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
-				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Sleep Phase";
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";
@@ -608,7 +609,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FWHF624C4H;
-				INFOPLIST_FILE = "SleepPhaseWakeApp WatchKit Extension/Resources/Info.plist";
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Sleep Phase";
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ruslanpopesku.SleepPhaseWakeApp;
 				PRODUCT_NAME = "Sleep Phase";
@@ -626,7 +628,7 @@
 				74145820281C164E00374996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		74145821281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -635,7 +637,7 @@
 				74145823281C164E00374996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		74145825281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -644,7 +646,7 @@
 				74145827281C164E00374996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		74145829281C164E00374996 /* Build configuration list for PBXNativeTarget "SleepPhaseWakeApp" */ = {
 			isa = XCConfigurationList;
@@ -653,7 +655,7 @@
 				7414582B281C164E00374996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

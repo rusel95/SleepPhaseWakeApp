@@ -12,8 +12,6 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
-	<key>UIBackgroundModes</key>
-	<array/>
 	<key>WKBackgroundModes</key>
 	<array>
 		<string>alarm</string>
