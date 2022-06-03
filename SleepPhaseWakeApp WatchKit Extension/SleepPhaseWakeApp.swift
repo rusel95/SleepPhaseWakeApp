@@ -7,6 +7,8 @@
 
 import SwiftUI
 import OSLog
+import Sentry
+
 
 @main
 struct SleepPhaseWakeApp: App {
@@ -16,6 +18,16 @@ struct SleepPhaseWakeApp: App {
 
     private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ruslanpopesku", category: "Lifecycle")
 
+    // MARK: - INIT
+    init() {
+        SentrySDK.start { options in
+            options.dsn = "https://fb83f8425ca7481d9308ed42dbf46b01@o1271632.ingest.sentry.io/6464194"
+            options.debug = true // Enabled debug when first installing is always helpful
+            // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+            // We recommend adjusting this value in production.
+            options.tracesSampleRate = 1.0
+        }
+    }
     // MARK: - BODY
 
     @SceneBuilder var body: some Scene {

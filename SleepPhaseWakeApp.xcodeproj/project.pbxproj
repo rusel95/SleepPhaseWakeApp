@@ -24,6 +24,7 @@
 		748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748403932825497D009CF2A4 /* StartedSessionView.swift */; };
 		748ECE502822868C00BD8F11 /* CMSensorDataList+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ECE4F2822868C00BD8F11 /* CMSensorDataList+Extension.swift */; };
 		7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */; };
+		74A032D42849FB69004AC7E3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 74A032D32849FB69004AC7E3 /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A032D42849FB69004AC7E3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +218,8 @@
 				74145801281C164C00374996 /* PBXTargetDependency */,
 			);
 			name = SleepPhaseWakeApp;
+			packageProductDependencies = (
+			);
 			productName = SleepPhaseWakeApp;
 			productReference = 741457FA281C164B00374996 /* Sleep Phase.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
@@ -233,6 +237,8 @@
 				7414580C281C164D00374996 /* PBXTargetDependency */,
 			);
 			name = "SleepPhaseWakeApp WatchKit App";
+			packageProductDependencies = (
+			);
 			productName = "SleepPhaseWakeApp WatchKit App";
 			productReference = 741457FE281C164C00374996 /* Sleep Phase.app */;
 			productType = "com.apple.product-type.application.watchapp2";
@@ -250,6 +256,9 @@
 			dependencies = (
 			);
 			name = "SleepPhaseWakeApp WatchKit Extension";
+			packageProductDependencies = (
+				74A032D32849FB69004AC7E3 /* Sentry */,
+			);
 			productName = "SleepPhaseWakeApp WatchKit Extension";
 			productReference = 74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -284,6 +293,9 @@
 				Base,
 			);
 			mainGroup = 741457F3281C164B00374996;
+			packageReferences = (
+				74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			productRefGroup = 741457FB281C164B00374996 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -361,6 +373,7 @@
 		7414581F281C164E00374996 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -421,6 +434,7 @@
 		74145820281C164E00374996 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -658,6 +672,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		74A032D32849FB69004AC7E3 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 741457F4281C164B00374996 /* Project object */;
 }
