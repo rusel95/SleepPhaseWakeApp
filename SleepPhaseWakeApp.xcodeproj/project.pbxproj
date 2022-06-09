@@ -21,6 +21,7 @@
 		745D17A8284635A400F1C69D /* ShortcutComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745D17A7284635A400F1C69D /* ShortcutComplication.swift */; };
 		7470D249284A11D200BC6F88 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7470D248284A11D200BC6F88 /* FirebaseDatabase */; };
 		7470D24B284A13FE00BC6F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7470D24A284A13FE00BC6F88 /* GoogleService-Info.plist */; };
+		747E71882850E97900051D7E /* StartedSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E71872850E97900051D7E /* StartedSessionViewModel.swift */; };
 		74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */; };
 		74840392282547EF009CF2A4 /* NotStartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74840391282547EF009CF2A4 /* NotStartedSessionView.swift */; };
 		748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748403932825497D009CF2A4 /* StartedSessionView.swift */; };
@@ -88,6 +89,7 @@
 		745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSessionCoordinatorService.swift; sourceTree = "<group>"; };
 		745D17A7284635A400F1C69D /* ShortcutComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutComplication.swift; sourceTree = "<group>"; };
 		7470D24A284A13FE00BC6F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		747E71872850E97900051D7E /* StartedSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedSessionViewModel.swift; sourceTree = "<group>"; };
 		7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		74840391282547EF009CF2A4 /* NotStartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionView.swift; sourceTree = "<group>"; };
 		748403932825497D009CF2A4 /* StartedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedSessionView.swift; sourceTree = "<group>"; };
@@ -141,7 +143,7 @@
 				7414580E281C164D00374996 /* SleepPhaseWakeApp.swift */,
 				74145810281C164D00374996 /* ContentView.swift */,
 				745BC7EC28351BBA005134B2 /* Services */,
-				741E6FA6283BC72E006A3055 /* Views */,
+				741E6FA6283BC72E006A3055 /* Screens */,
 				7497FF612844CB4E004DA367 /* Complications */,
 				748ECE4E2822866C00BD8F11 /* Helpers */,
 				745BC7ED2835249F005134B2 /* Resources */,
@@ -158,14 +160,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		741E6FA6283BC72E006A3055 /* Views */ = {
+		741E6FA6283BC72E006A3055 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				747E71892850E98000051D7E /* StartedSession */,
 				74840391282547EF009CF2A4 /* NotStartedSessionView.swift */,
-				748403932825497D009CF2A4 /* StartedSessionView.swift */,
 				7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */,
 			);
-			path = Views;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		745BC7EC28351BBA005134B2 /* Services */ = {
@@ -186,6 +188,15 @@
 				7414581E281C164E00374996 /* PushNotificationPayload.apns */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		747E71892850E98000051D7E /* StartedSession */ = {
+			isa = PBXGroup;
+			children = (
+				747E71872850E97900051D7E /* StartedSessionViewModel.swift */,
+				748403932825497D009CF2A4 /* StartedSessionView.swift */,
+			);
+			path = StartedSession;
 			sourceTree = "<group>";
 		};
 		748ECE4E2822866C00BD8F11 /* Helpers */ = {
@@ -359,6 +370,7 @@
 				748403942825497D009CF2A4 /* StartedSessionView.swift in Sources */,
 				7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */,
 				745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */,
+				747E71882850E97900051D7E /* StartedSessionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
