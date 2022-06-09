@@ -10,15 +10,11 @@ import CoreMotion
 
 struct StartedSessionView: View {
 
-    // MARK: - Property
+    // MARK: - PROPERTIES
 
-    @ObservedObject var viewModel: StartedSessionViewModel
-    
-    init() {
-        self.viewModel = StartedSessionViewModel()
-    }
+    @ObservedObject var viewModel: StartedSessionViewModel = StartedSessionViewModel()
 
-    // MARK: - Body
+    // MARK: - BODY
 
     var body: some View {
         VStack {
@@ -58,7 +54,7 @@ struct StartedSessionView: View {
 
 }
 
-// MARK: - Preview
+// MARK: - PREVIEW
 
 struct StartedSessionView_Previews: PreviewProvider {
 

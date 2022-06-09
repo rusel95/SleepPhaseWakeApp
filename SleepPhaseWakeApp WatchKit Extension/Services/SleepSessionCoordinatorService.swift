@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreMotion
 import OSLog
+import HealthKit
 
 enum MeasureState: String {
 

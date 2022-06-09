@@ -9,11 +9,12 @@ import SwiftUI
 
 struct FinishedSessionView: View {
 
-    // MARK: - PROPERTY
+    // MARK: - PROPERTIES
 
     @AppStorage("measureState") private var state: MeasureState = .finished
 
     // MARK: - BODY
+    
     var body: some View {
         VStack {
             Spacer()

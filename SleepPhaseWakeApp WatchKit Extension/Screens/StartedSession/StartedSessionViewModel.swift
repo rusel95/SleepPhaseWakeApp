@@ -11,7 +11,7 @@ import SwiftUI
 
 final class StartedSessionViewModel: ObservableObject {
     
-    // MARK: - Property
+    // MARK: - PROPERTIES
     
     @Published var isAlertPresented: Bool = false
     
@@ -32,13 +32,13 @@ final class StartedSessionViewModel: ObservableObject {
     
     private let sleepSessionService = SleepSessionCoordinatorService.shared
     
-    // MARK: - Init
+    // MARK: - INIT
     
     init() {
         showLowBatteryLevelAlertIfNeeded()
     }
     
-    // MARK: - Methods
+    // MARK: - METHODS
     
     func showLowBatteryLevelAlertIfNeeded() {
         WKInterfaceDevice.current().isBatteryMonitoringEnabled = true

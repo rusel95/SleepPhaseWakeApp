@@ -47,6 +47,8 @@ Next Steps:
 4. SleepPhase algorhytm detection improvements;
 
 5. Alpha-testing;
+
+6. Companion iOS-App - showing detailed ;
     
         
 ---
