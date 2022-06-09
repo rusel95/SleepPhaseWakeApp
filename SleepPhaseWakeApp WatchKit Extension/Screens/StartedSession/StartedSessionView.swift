@@ -12,7 +12,7 @@ struct StartedSessionView: View {
 
     // MARK: - PROPERTIES
 
-    @ObservedObject var viewModel: StartedSessionViewModel = StartedSessionViewModel()
+    @ObservedObject private var viewModel: StartedSessionViewModel = StartedSessionViewModel()
 
     // MARK: - BODY
 
@@ -49,7 +49,7 @@ struct StartedSessionView: View {
         .foregroundColor(Color.gray)
         .padding()
         .ignoresSafeArea(.container, edges: .bottom)
-        .alert("Minimum recommened battery level for proper Sleep Phase detection is 20%", isPresented: $viewModel.isAlertPresented) {}
+        .alert(viewModel.alertDescription, isPresented: $viewModel.isAlertPresented) {}
     }
 
 }

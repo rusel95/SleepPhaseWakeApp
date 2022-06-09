@@ -26,11 +26,16 @@ final class StartedSessionViewModel: ObservableObject {
         return "\(intervalStartString) - \(intervalEndString)"
     }
     
+    var alertDescription: String {
+        "Minimum recommended battery level for proper Sleep Phase detection is \(Int(minimumBatteryLevel * 100))%"
+    }
+    
     @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
     @AppStorage("measureState") private var state: MeasureState = .started
     
     private let sleepSessionService = SleepSessionCoordinatorService.shared
+    private let minimumBatteryLevel: Float = 0.2
     
     // MARK: - INIT
     
@@ -42,7 +47,7 @@ final class StartedSessionViewModel: ObservableObject {
     
     func showLowBatteryLevelAlertIfNeeded() {
         WKInterfaceDevice.current().isBatteryMonitoringEnabled = true
-        if WKInterfaceDevice.current().batteryLevel < 0.2 {
+        if WKInterfaceDevice.current().batteryLevel < minimumBatteryLevel {
             isAlertPresented = true
         }
         WKInterfaceDevice.current().isBatteryMonitoringEnabled = false

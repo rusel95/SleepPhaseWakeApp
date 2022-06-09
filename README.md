@@ -33,8 +33,6 @@ App Development Steps for creating of MVP (Minimum Valuable Product):
 
 Next Steps:
 
-0. HKCategorySleepAnalysis integration - "case awake" handling;
-
 1. Beta-testing: 
     - sharing between several internal testers; 
     - approve the idea by receiging more positive feedbacks then negative;
@@ -48,8 +46,7 @@ Next Steps:
 
 5. Alpha-testing;
 
-6. Companion iOS-App - showing detailed ;
-    
+6. Companion iOS-App - showing detailed graphs (with sleep stages and/or sleep quality and/or sleep durations - HealthKit);
         
 ---
 
@@ -57,4 +54,3 @@ Ideas for further Sleep Phase Detection:
 - use number of moves/hour for Sleep Phase detection
 - try to make marks per wake ups;
 - use Heart Rate for Sleep Detection;
-- use HealthKit's Sleep Data for Detection;

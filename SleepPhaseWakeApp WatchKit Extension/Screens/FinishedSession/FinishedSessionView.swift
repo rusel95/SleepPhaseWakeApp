@@ -11,7 +11,7 @@ struct FinishedSessionView: View {
 
     // MARK: - PROPERTIES
 
-    @AppStorage("measureState") private var state: MeasureState = .finished
+    @ObservedObject private var viewModel: FinishedSessionViewModel = FinishedSessionViewModel()
 
     // MARK: - BODY
     
@@ -37,9 +37,8 @@ struct FinishedSessionView: View {
 
             Button(action: {
                 withAnimation(.easeIn(duration: Constants.defaultAnimationDuration)) {
-                    state = .noStarted
+                    viewModel.wakeUpDidSelected()
                 }
-                triggerWakeUp()
             }, label: {
                 Label("WAKE UP", systemImage: "bolt.fill")
                     .font(.system(size: 20, weight: .semibold))
@@ -52,17 +51,6 @@ struct FinishedSessionView: View {
     }
 
 }
-
-// MARK: - HELPERS
-
-private extension FinishedSessionView {
-
-    func triggerWakeUp() {
-        SleepSessionCoordinatorService.shared.invalidate()
-    }
-
-}
-
 
 // MARK: - PREVIEW
 struct FinishedSessionView_Previews: PreviewProvider {

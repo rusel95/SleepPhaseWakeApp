@@ -24,6 +24,8 @@ final class NotStartedSessionViewModel: ObservableObject {
 
     private(set) var hours: [String] = (0 ... 23).map { String($0) }
     private(set) var minutes: [String] = (0 ... 59).map { String($0) }
+    
+    private let sleepSessionService = SleepSessionCoordinatorService.shared
    
     // MARK: - METHODS
     
@@ -49,6 +51,7 @@ final class NotStartedSessionViewModel: ObservableObject {
                                                                 of: Calendar.current.startOfDay(for: nextDayDate)) {
             wakeUpDate = nextDayWakeUpDate
         }
+        sleepSessionService.start()
         state = .started
     }
     
