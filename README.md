@@ -1,12 +1,13 @@
 # Sleep Phase Wake App (only WatchOS)
 
-WatchOS App for waking up using Sleep Phase detection via accelerometer
+SwiftUI + MVVM WatchOS App for waking up using Sleep Phase detection via accelerometer (very basic shaking detection for now)
+Later Apple's native HKCategorySleepAnalysis will be added for detection enhancement
 
-What are app Development Steps for creating of MVP (Minimum Valuable Product):
+App Development Steps for creating of MVP (Minimum Valuable Product):
   
 1. ~~UI-part~~:
-    - ~~inactive state screen~~(selection wake up time);
-   
+    - ~~inactive state screen (selection wake up time)~~;
+    
     ![alt text](https://github.com/rusel95/SleepPhaseWakeApp/blob/main/SleepPhaseWakeApp%20WatchKit%20Extension/Resources/Examples/notstartedsession.PNG)
     
     - ~~active states screen~~(showing processing screen);
@@ -16,9 +17,11 @@ What are app Development Steps for creating of MVP (Minimum Valuable Product):
     - ~~finish screen (wake up message)~~;
     
     ![alt text](https://github.com/rusel95/SleepPhaseWakeApp/blob/main/SleepPhaseWakeApp%20WatchKit%20Extension/Resources/Examples/wakeup.PNG)
+    
+    - ~~MVVM-arhitecture applying~~;
 
 2. ~~Create processing part of the app~~:
-    - ~~background-runtime execution for some period of time~~(30 minutes is maximum possible duration);
+    - ~~background-runtime execution for some period of time~~(30 minutes is maximum possible duration - OS restrictions);
     - ~~background states handling~~;
     - ~~making possible to have some calculations several times/minute~~(every second for now);
   
@@ -29,6 +32,9 @@ What are app Development Steps for creating of MVP (Minimum Valuable Product):
 ---
 
 Next Steps:
+
+0. HKCategorySleepAnalysis integration - "case awake" handling;
+
 1. Beta-testing: 
     - sharing between several internal testers; 
     - approve the idea by receiging more positive feedbacks then negative;
