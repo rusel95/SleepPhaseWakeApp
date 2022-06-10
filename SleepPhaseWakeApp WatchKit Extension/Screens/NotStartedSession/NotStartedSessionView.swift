@@ -38,8 +38,8 @@ struct NotStartedSessionView: View {
 
                 HStack(alignment: .center) {
                     Picker(selection: $viewModel.selectedHour) {
-                        ForEach(0 ..< viewModel.hours.count) {
-                            Text(viewModel.hours[$0])
+                        ForEach(0 ..< viewModel.hours.count, id: \.self) { index in
+                            Text(viewModel.hours[index])
                         }
                     } label: { }
 
@@ -48,8 +48,8 @@ struct NotStartedSessionView: View {
                         .offset(y: -2)
 
                     Picker(selection: $viewModel.selectedMinute) {
-                        ForEach(0 ..< viewModel.minutes.count) {
-                            Text(viewModel.minutes[$0])
+                        ForEach(0 ..< viewModel.minutes.count, id: \.self) { index in
+                            Text(viewModel.minutes[index])
                         }
                     } label: { }
                 }
