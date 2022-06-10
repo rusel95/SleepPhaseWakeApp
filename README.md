@@ -1,9 +1,13 @@
-# Sleep Phase Wake App (only WatchOS)
+# Sleep Phase Wake App for WatchOS
 
-SwiftUI + MVVM WatchOS App for waking up using Sleep Phase detection via accelerometer (very basic shaking detection for now)
+## Goal: wake up easier while less sleep, increase sleep quality
+
+### SwiftUI + MVVM WatchOS App for waking up using Sleep Phase detection via accelerometer (very basic shaking detection for now)
 Later Apple's native HKCategorySleepAnalysis will be added for detection enhancement
 
-App Development Steps for creating of MVP (Minimum Valuable Product):
+---
+
+## App Development Steps for creating of MVP (Minimum Valuable Product):
   
 1. ~~UI-part~~:
     - ~~inactive state screen (selection wake up time)~~;
@@ -31,7 +35,7 @@ App Development Steps for creating of MVP (Minimum Valuable Product):
 
 ---
 
-Next Steps:
+## Next Steps:
 
 1. Beta-testing: 
     - sharing between several internal testers; 
@@ -50,7 +54,7 @@ Next Steps:
         
 ---
 
-Ideas for further Sleep Phase Detection:
+## Ideas for further Sleep Phase Detection:
 - use number of moves/hour for Sleep Phase detection
 - try to make marks per wake ups;
 - use Heart Rate for Sleep Detection;
