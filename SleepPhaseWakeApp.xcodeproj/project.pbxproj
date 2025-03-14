@@ -19,7 +19,6 @@
 		745420BB2840FFF5002E8278 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745420BA2840FFF5002E8278 /* Constants.swift */; };
 		745BC7EB28350964005134B2 /* SleepSessionCoordinatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC7EA28350964005134B2 /* SleepSessionCoordinatorService.swift */; };
 		745D17A8284635A400F1C69D /* ShortcutComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745D17A7284635A400F1C69D /* ShortcutComplication.swift */; };
-		7470D249284A11D200BC6F88 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7470D248284A11D200BC6F88 /* FirebaseDatabase */; };
 		7470D24B284A13FE00BC6F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7470D24A284A13FE00BC6F88 /* GoogleService-Info.plist */; };
 		747E71882850E97900051D7E /* StartedSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E71872850E97900051D7E /* StartedSessionViewModel.swift */; };
 		74840390282514DF009CF2A4 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7484038F282514DF009CF2A4 /* Date+RawRepresentable.swift */; };
@@ -29,7 +28,7 @@
 		7490B46428522D1800AB5C1A /* NotStartedSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7490B46328522D1800AB5C1A /* NotStartedSessionViewModel.swift */; };
 		7490B4672852368600AB5C1A /* FinishedSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7490B4662852368600AB5C1A /* FinishedSessionViewModel.swift */; };
 		7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */; };
-		74A032D42849FB69004AC7E3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 74A032D32849FB69004AC7E3 /* Sentry */; };
+		859E462B2D84765E000BA033 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 859E462A2D84765E000BA033 /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,8 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7470D249284A11D200BC6F88 /* FirebaseDatabase in Frameworks */,
-				74A032D42849FB69004AC7E3 /* Sentry in Frameworks */,
+				859E462B2D84765E000BA033 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,8 +293,7 @@
 			);
 			name = "SleepPhaseWakeApp WatchKit Extension";
 			packageProductDependencies = (
-				74A032D32849FB69004AC7E3 /* Sentry */,
-				7470D248284A11D200BC6F88 /* FirebaseDatabase */,
+				859E462A2D84765E000BA033 /* Sentry */,
 			);
 			productName = "SleepPhaseWakeApp WatchKit Extension";
 			productReference = 74145809281C164D00374996 /* SleepPhaseWakeApp WatchKit Extension.appex */;
@@ -333,8 +330,7 @@
 			);
 			mainGroup = 741457F3281C164B00374996;
 			packageReferences = (
-				74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
-				7470D247284A11D200BC6F88 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				859E46292D84765E000BA033 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = 741457FB281C164B00374996 /* Products */;
 			projectDirPath = "";
@@ -718,33 +714,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7470D247284A11D200BC6F88 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		859E46292D84765E000BA033 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-		74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
+				minimumVersion = 8.47.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7470D248284A11D200BC6F88 /* FirebaseDatabase */ = {
+		859E462A2D84765E000BA033 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7470D247284A11D200BC6F88 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		74A032D32849FB69004AC7E3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 74A032D22849FB69004AC7E3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			package = 859E46292D84765E000BA033 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */

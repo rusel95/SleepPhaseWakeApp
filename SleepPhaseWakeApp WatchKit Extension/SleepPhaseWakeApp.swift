@@ -8,7 +8,6 @@
 import SwiftUI
 import OSLog
 import Sentry
-import FirebaseCore
 
 @main
 struct SleepPhaseWakeApp: App {
@@ -27,7 +26,6 @@ struct SleepPhaseWakeApp: App {
             // We recommend adjusting this value in production.
             options.tracesSampleRate = 1.0
         }
-        FirebaseApp.configure()
     }
     // MARK: - BODY
 
