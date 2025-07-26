@@ -6,136 +6,109 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct NotStartedSessionView: View {
 
     // MARK: - PROPERTIES
 
-    @State private var buttonOffset: CGFloat = 0
-    @State private var dragViewWidth: CGFloat = WKInterfaceDevice.current().screenBounds.size.width - 8
-    
-    private let dragButtonSideSize: CGFloat = 55.0
-
-    @ObservedObject private var viewModel: NotStartedSessionViewModel = NotStartedSessionViewModel()
+    @State private var isSlideActivated = false
+    @StateObject private var viewModel = NotStartedSessionViewModel()
     
     // MARK: - BODY
 
     var body: some View {
-        ZStack {
-            VStack {
-                Text("Select wake up time:")
-                    .opacity(viewModel.isAnimating ? 1 : 0)
-                    .offset(y: viewModel.isAnimating ? 0 : -20)
-                    .animation(.easeInOut(duration: 1), value: viewModel.isAnimating)
-                    .frame(alignment: .center)
-                    .minimumScaleFactor(0.5)
-                    .lineLimit(1)
-                    .gesture(LongPressGesture(minimumDuration: 1.0).onEnded { _ in
-                        viewModel.longTapDetected()
-                    })
-
-                Spacer(minLength: 10)
-
-                HStack(alignment: .center) {
-                    Picker(selection: $viewModel.selectedHour) {
-                        ForEach(0 ..< viewModel.hours.count, id: \.self) { index in
-                            Text(viewModel.hours[index])
+        VStack(spacing: Theme.Spacing.small) {
+            // Header - Simplified
+            Text("Wake Time")
+                .font(Theme.Typography.headline)
+                .foregroundColor(Theme.Colors.primaryText)
+                .gesture(
+                    LongPressGesture(minimumDuration: 1.0)
+                        .onEnded { _ in
+                            HapticFeedback.success()
+                            viewModel.longTapDetected()
                         }
-                    } label: { }
+                )
 
-                    Text (" : ")
-                        .frame(alignment: .center)
-                        .offset(y: -2)
-
-                    Picker(selection: $viewModel.selectedMinute) {
-                        ForEach(0 ..< viewModel.minutes.count, id: \.self) { index in
-                            Text(viewModel.minutes[index])
-                        }
-                    } label: { }
-                }
-                .foregroundColor(.white)
-                .font(.system(size: 20, weight: .bold))
-                .opacity(viewModel.isAnimating ? 1 : 0)
-                .animation(.easeInOut(duration: 1), value: viewModel.isAnimating)
-
-                Spacer(minLength: 10)
-
-                // MARK: Drag View
-
-                ZStack {
-                    // 1. CAPSULES (STATIC)
-                    Capsule()
-                        .fill(Color.white.opacity(0.2))
-
-                    Capsule()
-                        .fill(Color.white.opacity(0.2))
-                        .padding(4)
-
-                    // 2. CALL-TO-ACTION (STATIC)
-
-                    Image(systemName: viewModel.isSimulationMode ? "testtube.2" : "bed.double.fill")
-                        .font(.system(size: 26, weight: .bold))
-                        .offset(x: 20)
-
-                    // 3. CAPSULE (DYNAMIC WIDTH)
-
-                    HStack {
-                        Capsule()
-                            .fill(Color.white)
-                            .frame(width: buttonOffset + dragButtonSideSize, alignment: .center)
-                        Spacer()
+            // Time Picker - Simplified
+            HStack {
+                Picker(selection: $viewModel.selectedHour, label: Text("")) {
+                    ForEach(0..<24) { h in
+                        Text(String(format: "%02d", h))
+                            .tag(h)
                     }
+                }
+                .frame(width: 50)
+                .labelsHidden()
+                
+                Text(":")
+                    .font(Theme.Typography.title)
+                
+                Picker(selection: $viewModel.selectedMinute, label: Text("")) {
+                    ForEach(0..<60) { m in
+                        Text(String(format: "%02d", m))
+                            .tag(m)
+                    }
+                }
+                .frame(width: 50)
+                .labelsHidden()
+            }
+            .onChange(of: viewModel.selectedHour) { _ in
+                HapticFeedback.selection()
+            }
+            .onChange(of: viewModel.selectedMinute) { _ in
+                HapticFeedback.selection()
+            }
+            
+            Text("30 min window")
+                .font(Theme.Typography.caption)
+                .foregroundColor(Theme.Colors.secondaryText)
 
-                    // 4. CIRCLE (DRAGABLE)
-                    HStack {
-                        ZStack {
-                            Circle()
-                                .fill(Color.white)
-
-                            Circle()
-                                .fill(Color.secondary)
-                                .padding(4)
-
-                            Image(systemName: "chevron.right.2")
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 24, weight: .bold))
-                        } //: ZStack
-                        .frame(width: dragButtonSideSize, height: dragButtonSideSize, alignment: .center)
-                        .offset(x: buttonOffset)
-                        .gesture(
-                            DragGesture()
-                                .onChanged({ gesture in
-                                    if gesture.translation.width > 0 &&
-                                    buttonOffset <= dragViewWidth - dragButtonSideSize {
-                                        buttonOffset = gesture.translation.width
-                                    }
-                                })
-                                .onEnded({ _ in
-                                    withAnimation(.easeOut(duration: Constants.defaultAnimationDuration)) {
-                                        if buttonOffset > dragViewWidth / 2.0 {
-                                            buttonOffset = dragViewWidth - dragButtonSideSize
-                                            viewModel.startDidSelected()
-                                        } else {
-                                            buttonOffset = 0
-                                        }
-                                    }
-                                })
-                        )
-                        Spacer()
-                    } //: HStack
-                    .frame(width: dragViewWidth, alignment: .center)
-
-                } //: ZStack
-                .frame(height: dragButtonSideSize, alignment: .center)
-                .opacity(viewModel.isAnimating ? 1 : 0)
-                .offset(y: viewModel.isAnimating ? 0 : 40)
-                .animation(.easeInOut(duration: Constants.defaultAnimationDuration),
-                           value: viewModel.isAnimating)
-            } //: VStack
+            Spacer()
+            
+            // Simplified Slide Button
+            ZStack {
+                RoundedRectangle(cornerRadius: Theme.Sizes.cornerRadius)
+                    .fill(Theme.Colors.sliderTrack)
+                    .frame(height: Theme.Sizes.sliderHeight)
+                
+                HStack {
+                    Spacer()
+                    Text("Slide to Start")
+                        .font(Theme.Typography.callout)
+                        .foregroundColor(Theme.Colors.secondaryText)
+                    Image(systemName: "chevron.right.2")
+                        .font(.system(size: 14))
+                        .foregroundColor(Theme.Colors.secondaryText)
+                    Spacer()
+                }
+            }
+            .onTapGesture {
+                // Fallback tap to start for easier interaction
+                HapticFeedback.success()
+                viewModel.startDidSelected()
+            }
+            .gesture(
+                DragGesture(minimumDistance: 50)
+                    .onEnded { value in
+                        if value.translation.width > 50 {
+                            HapticFeedback.success()
+                            viewModel.startDidSelected()
+                        }
+                    }
+            )
+            
+            if viewModel.isSimulationMode {
+                Text("Sim Mode")
+                    .font(Theme.Typography.caption)
+                    .foregroundColor(Theme.Colors.warning)
+            }
+        } //: VStack
+        .padding(Theme.Spacing.small)
+        .onAppear {
+            viewModel.viewDidAppear()
         }
-        .foregroundColor(Color.gray)
-        .padding(4)
-        .ignoresSafeArea(.container, edges: .bottom)
     }
 
 }

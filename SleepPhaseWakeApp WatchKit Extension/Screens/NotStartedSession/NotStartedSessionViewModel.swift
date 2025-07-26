@@ -37,6 +37,12 @@ final class NotStartedSessionViewModel: ObservableObject {
         isSimulationMode.toggle()
     }
     
+    func viewDidAppear() {
+        withAnimation {
+            isAnimating = true
+        }
+    }
+    
     func startDidSelected() {
         if let currentDayWakeUpDate = Calendar.current.date(bySettingHour: selectedHour,
                                                             minute: selectedMinute,

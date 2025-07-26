@@ -6,48 +6,87 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct FinishedSessionView: View {
 
     // MARK: - PROPERTIES
 
-    @ObservedObject private var viewModel: FinishedSessionViewModel = FinishedSessionViewModel()
+    @StateObject private var viewModel = FinishedSessionViewModel()
+    @State private var isAnimating = false
+    @State private var sunRotation = 0.0
 
     // MARK: - BODY
     
     var body: some View {
-        VStack {
+        VStack(spacing: Theme.Spacing.medium) {
             Spacer()
-
-            Image(systemName: "sun.and.horizon.fill")
-                .symbolRenderingMode(.hierarchical)
-                .foregroundColor(Color.yellow)
-                .font(.system(size: 56, weight: .semibold))
-
+            
+            // Simple sun icon
+            Image(systemName: "sun.max.fill")
+                .symbolRenderingMode(.multicolor)
+                .font(.system(size: 40))
+                .scaleEffect(isAnimating ? 1.1 : 0.9)
+                .animation(
+                    Theme.Animation.smooth
+                        .repeatForever(autoreverses: true),
+                    value: isAnimating
+                )
+            
+            // Greeting
+            VStack(spacing: Theme.Spacing.xxSmall) {
+                Text(viewModel.greetingText)
+                    .font(Theme.Typography.headline)
+                    .foregroundColor(Theme.Colors.primaryText)
+                    .multilineTextAlignment(.center)
+                
+                Text(viewModel.wakeTimeMessage)
+                    .font(Theme.Typography.caption)
+                    .foregroundColor(Theme.Colors.secondaryText)
+                    .multilineTextAlignment(.center)
+            }
+            
             Spacer()
-
-            Text("Good Morning!")
-                .foregroundColor(.white)
-                .font(.system(size: 24, weight: .semibold))
-                .frame(alignment: .center)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-
-            Spacer()
-
+            
+            // Wake Up Button - Large tap target
             Button(action: {
-                withAnimation(.easeIn(duration: Constants.defaultAnimationDuration)) {
-                    viewModel.wakeUpDidSelected()
-                }
-            }, label: {
-                Label("WAKE UP", systemImage: "bolt.fill")
-                    .font(.system(size: 20, weight: .semibold))
-            })
-            Spacer()
+                HapticFeedback.success()
+                viewModel.wakeUpDidSelected()
+            }) {
+                Text("Wake Up")
+                    .font(Theme.Typography.buttonLabel)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: Theme.Sizes.buttonHeight)
+                    .background(Theme.Colors.primary)
+                    .cornerRadius(Theme.Sizes.cornerRadius)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .scaleEffect(isAnimating ? 1.05 : 0.95)
+            .animation(
+                Theme.Animation.smooth
+                    .repeatForever(autoreverses: true),
+                value: isAnimating
+            )
         }
-        .padding()
-        .background(Constants.defaultBackgroundColor)
-        .ignoresSafeArea(.container, edges: .bottom)
+        .padding(Theme.Spacing.small)
+        .onAppear {
+            isAnimating = true
+            withAnimation(Theme.Animation.smooth.repeatForever(autoreverses: false)) {
+                sunRotation = 360
+            }
+            
+            // Play wake up haptics pattern
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                HapticFeedback.success()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                HapticFeedback.success()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                HapticFeedback.success()
+            }
+        }
     }
 
 }
