@@ -18,11 +18,12 @@ struct NotStartedSessionView: View {
     // MARK: - BODY
 
     var body: some View {
-        VStack(spacing: Theme.Spacing.small) {
-            // Header - Simplified
+        VStack(spacing: Theme.Adaptive.Spacing.small) {
+            // Header - Simplified with reduced top spacing
             Text("Wake Time")
-                .font(Theme.Typography.headline)
+                .font(Theme.Adaptive.Typography.headline)
                 .foregroundColor(Theme.Colors.primaryText)
+                .padding(.top, -Theme.Adaptive.Spacing.small)
                 .gesture(
                     LongPressGesture(minimumDuration: 1.0)
                         .onEnded { _ in
@@ -31,81 +32,40 @@ struct NotStartedSessionView: View {
                         }
                 )
 
-            // Time Picker - Simplified
-            HStack {
-                Picker(selection: $viewModel.selectedHour, label: Text("")) {
-                    ForEach(0..<24) { h in
-                        Text(String(format: "%02d", h))
-                            .tag(h)
-                    }
+            // Time Picker - Using reusable component
+            SleepTimePicker(hour: $viewModel.selectedHour, minute: $viewModel.selectedMinute)
+                .padding(.vertical, Theme.Adaptive.Spacing.small)
+                .onChange(of: viewModel.selectedHour) { _ in
+                    HapticFeedback.selection()
                 }
-                .frame(width: 50)
-                .labelsHidden()
-                
-                Text(":")
-                    .font(Theme.Typography.title)
-                
-                Picker(selection: $viewModel.selectedMinute, label: Text("")) {
-                    ForEach(0..<60) { m in
-                        Text(String(format: "%02d", m))
-                            .tag(m)
-                    }
+                .onChange(of: viewModel.selectedMinute) { _ in
+                    HapticFeedback.selection()
                 }
-                .frame(width: 50)
-                .labelsHidden()
-            }
-            .onChange(of: viewModel.selectedHour) { _ in
-                HapticFeedback.selection()
-            }
-            .onChange(of: viewModel.selectedMinute) { _ in
-                HapticFeedback.selection()
-            }
             
             Text("30 min window")
-                .font(Theme.Typography.caption)
+                .font(Theme.Adaptive.Typography.body)
                 .foregroundColor(Theme.Colors.secondaryText)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
+                .padding(.top, -Theme.Adaptive.Spacing.small)
 
-            Spacer()
+            Spacer(minLength: Theme.Adaptive.Spacing.small)
             
-            // Simplified Slide Button
-            ZStack {
-                RoundedRectangle(cornerRadius: Theme.Sizes.cornerRadius)
-                    .fill(Theme.Colors.sliderTrack)
-                    .frame(height: Theme.Sizes.sliderHeight)
-                
-                HStack {
-                    Spacer()
-                    Text("Slide to Start")
-                        .font(Theme.Typography.callout)
-                        .foregroundColor(Theme.Colors.secondaryText)
-                    Image(systemName: "chevron.right.2")
-                        .font(.system(size: 14))
-                        .foregroundColor(Theme.Colors.secondaryText)
-                    Spacer()
+            // Slide to Start Button - Using reusable component
+            SlideToStartButton(
+                isActivated: $isSlideActivated,
+                onActivate: {
+                    viewModel.startDidSelected()
                 }
-            }
-            .onTapGesture {
-                // Fallback tap to start for easier interaction
-                HapticFeedback.success()
-                viewModel.startDidSelected()
-            }
-            .gesture(
-                DragGesture(minimumDistance: 50)
-                    .onEnded { value in
-                        if value.translation.width > 50 {
-                            HapticFeedback.success()
-                            viewModel.startDidSelected()
-                        }
-                    }
             )
             
             if viewModel.isSimulationMode {
                 Text("Sim Mode")
-                    .font(Theme.Typography.caption)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(Theme.Colors.warning)
             }
         } //: VStack
-        .padding(Theme.Spacing.small)
+        .adaptivePadding()
         .onAppear {
             viewModel.viewDidAppear()
         }

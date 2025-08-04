@@ -10,14 +10,6 @@ import CoreMotion
 import OSLog
 import HealthKit
 
-enum MeasureState: String {
-
-    case noStarted
-    case started
-    case finished
-
-}
-
 final class SleepSessionCoordinatorService: NSObject {
 
     // MARK: - PROPERTY
@@ -27,7 +19,7 @@ final class SleepSessionCoordinatorService: NSObject {
     private var runtimeSession: WKExtendedRuntimeSession?
     private var processingTimer: Timer?
 
-    @AppStorage("measureState") private var state: MeasureState = .started
+    @AppStorage("measureState") private var state: String = MeasureState.started.rawValue
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
     @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
@@ -39,7 +31,9 @@ final class SleepSessionCoordinatorService: NSObject {
 
     // MARK: - INIT
 
-    private override init() {}
+    override private init() {
+        super.init()
+    }
 
     deinit {
         logger.error("SleepSessionCoordinatorService deinited")
@@ -86,7 +80,7 @@ final class SleepSessionCoordinatorService: NSObject {
         runtimeSession?.delegate = nil
         runtimeSession?.invalidate()
         lastSessionStart = nil
-        state = .noStarted
+        state = MeasureState.notStarted.rawValue
     }
 
 }
@@ -166,7 +160,7 @@ private extension SleepSessionCoordinatorService {
                     timer.invalidate()
                     // NOTE: - User must be notified via System's Alarm tool about finishing
                     self.runtimeSession?.notifyUser(hapticType: .stop)
-                    self.state = .finished
+                    self.state = MeasureState.finished.rawValue
                 }
             }
         })

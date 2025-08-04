@@ -10,10 +10,14 @@ import SwiftUI
 
 final class FinishedSessionViewModel: ObservableObject {
     
+    private let stateManager = AppStateManager.shared
+    private let sessionManager = SleepSessionCoordinatorService.shared
+    
     // MARK: - PROPERTIES
     
-    @AppStorage("measureState") private var state: MeasureState = .finished
-    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date()
+    var wakeUpDate: Date {
+        stateManager.wakeUpDate
+    }
     
     var greetingText: String {
         let hour = Calendar.current.component(.hour, from: Date())
@@ -30,10 +34,8 @@ final class FinishedSessionViewModel: ObservableObject {
     }
     
     var wakeTimeMessage: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        let actualWakeTime = formatter.string(from: Date())
-        let plannedWakeTime = formatter.string(from: wakeUpDate)
+        let actualWakeTime = TimeFormatter.formatTime(Date())
+        let plannedWakeTime = TimeFormatter.formatTime(wakeUpDate)
         
         let minutesDifference = Int(Date().timeIntervalSince(wakeUpDate) / 60)
         if abs(minutesDifference) < 5 {
@@ -48,8 +50,8 @@ final class FinishedSessionViewModel: ObservableObject {
     // MARK: - METHODS
     
     func wakeUpDidSelected() {
-        state = .noStarted
-        SleepSessionCoordinatorService.shared.invalidate()
+        stateManager.reset()
+        sessionManager.invalidate()
     }
     
     func recordSleepQuality(_ quality: String) {

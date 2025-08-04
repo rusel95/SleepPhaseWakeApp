@@ -19,32 +19,36 @@ struct StartedSessionView: View {
     // MARK: - BODY
 
     var body: some View {
-        VStack(spacing: Theme.Spacing.medium) {
+        VStack(spacing: Theme.Adaptive.Spacing.medium) {
             // Simplified time display
-            VStack(spacing: Theme.Spacing.xSmall) {
+            VStack(spacing: Theme.Adaptive.Spacing.small) {
                 Image(systemName: "moon.zzz.fill")
-                    .font(.system(size: Theme.Sizes.largeIconSize))
+                    .font(.system(size: Theme.Adaptive.Sizes.largeIconSize))
                     .foregroundColor(Theme.Colors.primary)
                     .symbolRenderingMode(.hierarchical)
                 
                 Text(viewModel.remainingTime)
-                    .font(Theme.Typography.largeTitle)
+                    .font(Theme.Adaptive.Typography.largeTitle)
                     .foregroundColor(Theme.Colors.primaryText)
+                    .minimumScaleFactor(0.7)
+                    .lineLimit(1)
                 
                 Text("until wake window")
-                    .font(Theme.Typography.caption)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(Theme.Colors.secondaryText)
             }
-            .padding(.top, Theme.Spacing.small)
+            .padding(.top, Theme.Adaptive.Spacing.small)
             
             // Wake Window
             Text(viewModel.wakeUpWindowsDescription)
-                .font(Theme.Typography.body)
+                .font(Theme.Adaptive.Typography.body)
                 .foregroundColor(Theme.Colors.primaryText)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
             
             // Status
-            HStack(spacing: Theme.Spacing.xSmall) {
+            HStack(spacing: 4) {
                 Circle()
                     .fill(Theme.Colors.success)
                     .frame(width: 6, height: 6)
@@ -61,7 +65,7 @@ struct StartedSessionView: View {
                     )
                 
                 Text("Monitoring")
-                    .font(Theme.Typography.footnote)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(Theme.Colors.secondaryText)
             }
             
@@ -73,18 +77,18 @@ struct StartedSessionView: View {
                 showingStopConfirmation = true
             }) {
                 Label("Stop", systemImage: "stop.fill")
-                    .font(Theme.Typography.body)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(Theme.Colors.error)
             }
             .buttonStyle(PlainButtonStyle())
             .frame(maxWidth: .infinity)
-            .frame(height: Theme.Sizes.buttonHeight)
+            .frame(height: Theme.Adaptive.Sizes.buttonHeight)
             .background(
                 RoundedRectangle(cornerRadius: Theme.Sizes.smallCornerRadius)
                     .stroke(Theme.Colors.error.opacity(0.5), lineWidth: 1)
             )
         }
-        .padding(Theme.Spacing.small)
+        .adaptivePadding()
         .alert("Stop Sleep Tracking?", isPresented: $showingStopConfirmation) {
             Button("Cancel", role: .cancel) {
                 HapticFeedback.selection()

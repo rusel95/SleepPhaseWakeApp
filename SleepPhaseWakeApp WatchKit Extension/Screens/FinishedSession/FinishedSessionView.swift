@@ -19,13 +19,13 @@ struct FinishedSessionView: View {
     // MARK: - BODY
     
     var body: some View {
-        VStack(spacing: Theme.Spacing.medium) {
+        VStack(spacing: Theme.Adaptive.Spacing.medium) {
             Spacer()
             
             // Simple sun icon
             Image(systemName: "sun.max.fill")
                 .symbolRenderingMode(.multicolor)
-                .font(.system(size: 40))
+                .font(.system(size: AdaptiveSize(small: 35, medium: 40, large: 45).value))
                 .scaleEffect(isAnimating ? 1.1 : 0.9)
                 .animation(
                     Theme.Animation.smooth
@@ -34,16 +34,20 @@ struct FinishedSessionView: View {
                 )
             
             // Greeting
-            VStack(spacing: Theme.Spacing.xxSmall) {
+            VStack(spacing: 2) {
                 Text(viewModel.greetingText)
-                    .font(Theme.Typography.headline)
+                    .font(Theme.Adaptive.Typography.headline)
                     .foregroundColor(Theme.Colors.primaryText)
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
                 
                 Text(viewModel.wakeTimeMessage)
-                    .font(Theme.Typography.caption)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(Theme.Colors.secondaryText)
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
             }
             
             Spacer()
@@ -54,10 +58,10 @@ struct FinishedSessionView: View {
                 viewModel.wakeUpDidSelected()
             }) {
                 Text("Wake Up")
-                    .font(Theme.Typography.buttonLabel)
+                    .font(Theme.Adaptive.Typography.body)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .frame(height: Theme.Sizes.buttonHeight)
+                    .frame(height: Theme.Adaptive.Sizes.buttonHeight)
                     .background(Theme.Colors.primary)
                     .cornerRadius(Theme.Sizes.cornerRadius)
             }
@@ -69,7 +73,7 @@ struct FinishedSessionView: View {
                 value: isAnimating
             )
         }
-        .padding(Theme.Spacing.small)
+        .adaptivePadding()
         .onAppear {
             isAnimating = true
             withAnimation(Theme.Animation.smooth.repeatForever(autoreverses: false)) {

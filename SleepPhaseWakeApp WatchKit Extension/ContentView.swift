@@ -13,13 +13,13 @@ struct ContentView: View {
 
     // MARK: - Property
 
-    @AppStorage("measureState") var state: MeasureState = .noStarted
+    @StateObject private var stateManager = AppStateManager.shared
 
     // MARK: - Body
 
     var body: some View {
-        switch state {
-        case .noStarted:
+        switch stateManager.measureState {
+        case .notStarted:
             NotStartedSessionView()
         case .started:
             StartedSessionView()
@@ -42,10 +42,18 @@ struct ContentView_Previews: PreviewProvider {
 
 // MARK: - UI Components
 
-// Time Picker Component - Simplified for small screens
+// Time Picker Component - Adaptive for all screen sizes
 struct SleepTimePicker: View {
     @Binding var hour: Int
     @Binding var minute: Int
+    
+    private var pickerWidth: CGFloat {
+        AdaptiveSize(small: 45, medium: 50, large: 55).value
+    }
+    
+    private var pickerHeight: CGFloat {
+        AdaptiveSize(small: 60, medium: 70, large: 80).value
+    }
     
     var body: some View {
         HStack(spacing: 2) {
@@ -55,11 +63,12 @@ struct SleepTimePicker: View {
                         .tag(h)
                 }
             }
-            .frame(width: 50)
+            .frame(width: pickerWidth, height: pickerHeight)
             .labelsHidden()
+            .clipped()
             
             Text(":")
-                .font(Theme.Typography.title)
+                .font(Theme.Adaptive.Typography.title)
             
             Picker("Minute", selection: $minute) {
                 ForEach(0..<60) { m in
@@ -67,8 +76,9 @@ struct SleepTimePicker: View {
                         .tag(m)
                 }
             }
-            .frame(width: 50)
+            .frame(width: pickerWidth, height: pickerHeight)
             .labelsHidden()
+            .clipped()
         }
     }
 }
@@ -111,8 +121,12 @@ struct SlideToStartButton: View {
     @State private var dragOffset: CGFloat = 0
     @State private var isDragging = false
     
-    private let sliderWidth: CGFloat = WKInterfaceDevice.current().screenBounds.width - 40
-    private let buttonSize: CGFloat = 50
+    private var sliderWidth: CGFloat {
+        WKInterfaceDevice.current().screenBounds.width - AdaptiveSize(small: 30, medium: 40, large: 50).value
+    }
+    private var buttonSize: CGFloat {
+        AdaptiveSize(small: 44, medium: 50, large: 56).value
+    }
     private let threshold: CGFloat = 0.8
     
     var body: some View {
@@ -120,20 +134,21 @@ struct SlideToStartButton: View {
             // Background
             RoundedRectangle(cornerRadius: Theme.Sizes.cornerRadius)
                 .fill(Theme.Colors.sliderTrack)
-                .frame(height: Theme.Sizes.sliderHeight)
+                .frame(height: Theme.Adaptive.Sizes.sliderHeight)
             
             // Fill progress
             RoundedRectangle(cornerRadius: Theme.Sizes.cornerRadius)
                 .fill(Theme.Colors.sliderFill.opacity(dragOffset / (sliderWidth - buttonSize)))
-                .frame(width: dragOffset + buttonSize, height: Theme.Sizes.sliderHeight)
+                .frame(width: dragOffset + buttonSize, height: Theme.Adaptive.Sizes.sliderHeight)
             
             // Instruction text
             if dragOffset < 10 {
                 HStack {
                     Spacer()
                     Text("Slide to Start")
-                        .font(Theme.Typography.callout)
+                        .font(Theme.Adaptive.Typography.body)
                         .foregroundColor(Theme.Colors.secondaryText)
+                        .minimumScaleFactor(0.8)
                     Spacer()
                 }
                 .transition(.opacity)
@@ -141,16 +156,15 @@ struct SlideToStartButton: View {
             
             // Draggable button
             HStack {
-                ZStack {
-                    Circle()
-                        .fill(Theme.Colors.primary)
-                        .frame(width: buttonSize, height: buttonSize)
-                    
-                    Image(systemName: "moon.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20))
-                }
-                .offset(x: dragOffset)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: AdaptiveSize(small: 20, medium: 24, large: 28).value, weight: .semibold))
+                    .foregroundColor(Theme.Colors.primary)
+                    .frame(width: buttonSize, height: buttonSize)
+                    .background(
+                        Circle()
+                            .fill(Color.white.opacity(0.2))
+                    )
+                    .offset(x: dragOffset)
                 .gesture(
                     DragGesture()
                         .onChanged { value in

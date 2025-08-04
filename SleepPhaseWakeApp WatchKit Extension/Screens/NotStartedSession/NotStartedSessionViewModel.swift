@@ -15,26 +15,26 @@ final class NotStartedSessionViewModel: ObservableObject {
     @AppStorage("selectedHour") var selectedHour: Int = 8
     @AppStorage("selectedMinute") var selectedMinute: Int = 0
     
-    @AppStorage("isSimulationMode") private(set) var isSimulationMode: Bool = false
-    
     @Published private(set) var isAnimating: Bool = false
     
-    @AppStorage("measureState") private var state: MeasureState = .noStarted
-    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
-
     private(set) var hours: [String] = (0 ... 23).map { String($0) }
     private(set) var minutes: [String] = (0 ... 59).map { String($0) }
     
-    private let sleepSessionService = SleepSessionCoordinatorService.shared
+    var isSimulationMode: Bool {
+        stateManager.isSimulationMode
+    }
    
     // MARK: - METHODS
+    
+    private let stateManager = AppStateManager.shared
+    private let sessionManager = SleepSessionCoordinatorService.shared
     
     init() {
         isAnimating = true
     }
     
     func longTapDetected() {
-        isSimulationMode.toggle()
+        stateManager.isSimulationMode.toggle()
     }
     
     func viewDidAppear() {
@@ -44,21 +44,28 @@ final class NotStartedSessionViewModel: ObservableObject {
     }
     
     func startDidSelected() {
+        let wakeUpDate = calculateWakeUpDate()
+        stateManager.wakeUpDate = wakeUpDate
+        sessionManager.start()
+        stateManager.measureState = .started
+    }
+    
+    private func calculateWakeUpDate() -> Date {
         if let currentDayWakeUpDate = Calendar.current.date(bySettingHour: selectedHour,
                                                             minute: selectedMinute,
                                                             second: 0,
                                                             of: Date()),
            currentDayWakeUpDate > Date() {
-            wakeUpDate = currentDayWakeUpDate
+            return currentDayWakeUpDate
         } else if let nextDayDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()),
                   let nextDayWakeUpDate = Calendar.current.date(bySettingHour: selectedHour,
                                                                 minute: selectedMinute,
                                                                 second: 0,
                                                                 of: Calendar.current.startOfDay(for: nextDayDate)) {
-            wakeUpDate = nextDayWakeUpDate
+            return nextDayWakeUpDate
         }
-        sleepSessionService.start()
-        state = .started
+        
+        return Date()
     }
     
 }

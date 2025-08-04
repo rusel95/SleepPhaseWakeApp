@@ -6,6 +6,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 SleepPhaseWakeApp is a watchOS-only application that wakes users during lighter sleep phases within a 30-minute window before their set alarm time. It uses accelerometer data to detect movement as a proxy for sleep phase identification.
 
+## Architecture Principles
+
+### MUST Follow:
+1. **SOLID Principles** - Every new feature/change must adhere to SOLID
+2. **DRY (Don't Repeat Yourself)** - Extract common logic into reusable components
+3. **Protocol-Oriented Programming** - Use protocols for abstraction, not inheritance
+4. **Singleton Pattern** - Use for shared services (no DependencyContainer)
+5. **MVVM Architecture** - Clear separation between Views and ViewModels
+
+### Code Standards:
+- All new files must include proper author header (Ruslan Popesku)
+- Keep protocols and their single implementation in the same file
+- Create unit tests for business logic
+- Ensure UI works on all watchOS screen sizes (especially SE 40mm/44mm)
+- No ViewModelBase or unnecessary abstractions
+
 ## Common Development Commands
 
 ### Building
@@ -24,7 +40,10 @@ xcodebuild -project SleepPhaseWakeApp.xcodeproj -scheme "SleepPhaseWakeApp Watch
 ```
 
 ### Testing
-No test infrastructure currently exists. When implementing tests, they should be added to a new test target in the Xcode project.
+```bash
+# Run unit tests
+xcodebuild test -project SleepPhaseWakeApp.xcodeproj -scheme "SleepPhaseWakeAppTests" -destination 'platform=watchOS Simulator,name=Apple Watch SE (44mm) (2nd generation)'
+```
 
 ### Linting
 No linting configuration currently exists. Consider adding SwiftLint for code consistency.
@@ -34,14 +53,17 @@ No linting configuration currently exists. Consider adding SwiftLint for code co
 ### Project Structure
 - **watchOS-only app** built with Swift and SwiftUI (no iOS companion app yet)
 - **MVVM architecture** with clear separation between Views, ViewModels, and Services
+- **Protocol-Oriented Programming** with SOLID principles throughout
 - **Swift Package Manager** for dependency management (currently only Sentry SDK)
 
 ### Key Components
 
-1. **Sleep Session Service** (`SleepPhaseWakeApp WatchKit Extension/Services/SleepSessionService.swift`)
-   - Singleton coordinator managing the entire sleep tracking lifecycle
-   - Handles accelerometer data collection and movement detection
-   - Manages background execution (limited to 30 minutes by watchOS)
+1. **Services** (Following Single Responsibility Principle):
+   - **AppStateManager**: Singleton managing app state persistence
+   - **AccelerometerService**: Hardware sensor interface (implements SensorDataProvider)
+   - **MovementDetector**: Analyzes sensor data for wake-up decisions
+   - **UserNotificationService**: Handles all notification logic
+   - **SleepSessionCoordinatorService**: Orchestrates the sleep tracking lifecycle
 
 2. **Screen Organization** (MVVM pattern in `Screens/` directory):
    - **NotStartedSession**: Initial state for setting wake-up time
@@ -49,20 +71,22 @@ No linting configuration currently exists. Consider adding SwiftLint for code co
    - **FinishedSession**: Wake-up completion screen
 
 3. **State Management**:
+   - Centralized in `AppStateManager` singleton
    - Uses `@AppStorage` for persistent state across app launches
-   - Three main states: `noStarted`, `started`, `finished`
-   - State transitions managed by ViewModels
+   - Three main states: `notStarted`, `started`, `finished`
+   - State transitions managed by ViewModels through protocol abstraction
 
 4. **Movement Detection Algorithm**:
-   - Located in `SleepSessionService.handleAccelerometerData()`
+   - Isolated in `MovementDetector` class (Single Responsibility)
    - Triggers wake-up when total acceleration exceeds 1.2 threshold
    - Runs every second during the 30-minute wake window
+   - Implements `AccelerometerDataHandler` protocol for testability
 
 ### Technical Constraints
 
 1. **30-minute background limit**: watchOS restricts background execution to 30 minutes maximum
 2. **No HealthKit integration**: Currently relies solely on accelerometer data
-3. **No test coverage**: Project lacks any testing infrastructure
+3. **Limited test coverage**: Unit tests for core business logic only
 4. **Simple threshold-based detection**: Wake-up triggered by first movement above threshold
 
 ### Dependencies
@@ -79,3 +103,25 @@ No linting configuration currently exists. Consider adding SwiftLint for code co
    - Apple's HKCategorySleepAnalysis
 3. Companion iOS app for detailed sleep analytics
 4. UI/UX redesign
+
+### Reusable Components
+
+- **PrimaryActionButton**: Consistent button styling with haptic feedback
+- **AnimationModifiers**: Reusable animations (pulsing, breathing)
+- **TimeFormatter**: Centralized time formatting utilities
+- **ComplicationViews**: SwiftUI views for all complication families
+
+### Key Protocols
+
+- **StateManager**: App state management abstraction
+- **SensorDataProvider**: Sensor recording interface
+- **AccelerometerDataHandler**: Data processing interface
+- **NotificationService**: Notification management interface
+
+### Important Notes
+
+- Always compile after each significant change
+- Test on multiple watch sizes (SE 40mm is most constrained)
+- Update complications when app state changes
+- Respect the 30-minute background execution limit
+- Use singletons for services, not dependency injection containers

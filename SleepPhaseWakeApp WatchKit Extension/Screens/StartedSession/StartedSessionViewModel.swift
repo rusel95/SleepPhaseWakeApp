@@ -33,13 +33,19 @@ final class StartedSessionViewModel: ObservableObject {
         "Minimum recommended battery level for proper Sleep Phase detection is \(Int(minimumBatteryLevel * 100))%"
     }
     
-    @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
-    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
-    @AppStorage("measureState") private var state: MeasureState = .started
-    
-    private let sleepSessionService = SleepSessionCoordinatorService.shared
     private let minimumBatteryLevel: Float = 0.2
     private var timer: Timer?
+    
+    var isSimulationMode: Bool {
+        stateManager.isSimulationMode
+    }
+    
+    var wakeUpDate: Date {
+        stateManager.wakeUpDate
+    }
+    
+    private let stateManager = AppStateManager.shared
+    private let sessionManager = SleepSessionCoordinatorService.shared
     
     // MARK: - INIT
     
@@ -77,19 +83,13 @@ final class StartedSessionViewModel: ObservableObject {
             remainingTime = "00:00"
         } else if now <= minimumWakeUpDate {
             progressToWakeUp = 0.0
-            let totalSeconds = Int(wakeUpDate.timeIntervalSince(now))
-            let hours = totalSeconds / 3600
-            let minutes = (totalSeconds % 3600) / 60
-            remainingTime = String(format: "%02d:%02d", hours, minutes)
+            remainingTime = TimeFormatter.formatCountdown(from: now, to: wakeUpDate)
         } else {
             let totalDuration = processingIntervalDuration
             let elapsed = now.timeIntervalSince(minimumWakeUpDate)
             progressToWakeUp = min(elapsed / totalDuration, 1.0)
             
-            let remainingSeconds = Int(wakeUpDate.timeIntervalSince(now))
-            let minutes = remainingSeconds / 60
-            let seconds = remainingSeconds % 60
-            remainingTime = String(format: "%02d:%02d", minutes, seconds)
+            remainingTime = TimeFormatter.formatCountdown(from: now, to: wakeUpDate)
         }
     }
     
@@ -97,8 +97,8 @@ final class StartedSessionViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
         isMonitoring = false
-        state = .noStarted
-        sleepSessionService.invalidate()
+        stateManager.measureState = .notStarted
+        sessionManager.invalidate()
     }
     
     deinit {
