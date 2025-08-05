@@ -47,11 +47,11 @@ enum AppConfiguration {
     
     // MARK: - UI
     enum UI {
-        /// Slider activation threshold (80% of total distance)
-        static let sliderActivationThreshold: CGFloat = 0.8
+        /// Slider activation threshold (95% of total distance)
+        static let sliderActivationThreshold: CGFloat = 0.95
         
-        /// Slider haptic feedback threshold (50% of total distance)
-        static let sliderHapticThreshold: CGFloat = 0.5
+        /// Slider haptic feedback threshold (85% of total distance)
+        static let sliderHapticThreshold: CGFloat = 0.85
     }
     
     // MARK: - Time Formatting
