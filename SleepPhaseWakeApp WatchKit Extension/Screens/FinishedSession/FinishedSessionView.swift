@@ -81,14 +81,10 @@ struct FinishedSessionView: View {
             }
             
             // Play wake up haptics pattern
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                HapticFeedback.success()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                HapticFeedback.success()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                HapticFeedback.success()
+            for delay in AppConfiguration.Haptics.wakeUpPatternDelays {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    HapticFeedback.success()
+                }
             }
         }
     }

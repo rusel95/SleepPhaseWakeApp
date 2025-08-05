@@ -15,7 +15,11 @@ protocol SensorDataProvider {
 }
 
 final class AccelerometerService: SensorDataProvider {
+    static let shared = AccelerometerService()
+    
     private let sensorRecorder = CMSensorRecorder()
+    
+    private init() {}
     
     func startRecording() {
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {

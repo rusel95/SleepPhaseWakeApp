@@ -15,7 +15,11 @@ protocol NotificationService {
 }
 
 final class UserNotificationService: NotificationService {
+    static let shared = UserNotificationService()
+    
     private let notificationCenter = UNUserNotificationCenter.current()
+    
+    private init() {}
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in

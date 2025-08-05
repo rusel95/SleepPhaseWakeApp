@@ -15,7 +15,7 @@ protocol AccelerometerDataHandler {
 final class MovementDetector: AccelerometerDataHandler {
     private let movementThreshold: Double
     
-    init(movementThreshold: Double = 1.2) {
+    init(movementThreshold: Double = AppConfiguration.SleepTracking.movementThreshold) {
         self.movementThreshold = movementThreshold
     }
     

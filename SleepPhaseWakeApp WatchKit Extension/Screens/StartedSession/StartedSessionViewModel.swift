@@ -33,7 +33,7 @@ final class StartedSessionViewModel: ObservableObject {
         "Minimum recommended battery level for proper Sleep Phase detection is \(Int(minimumBatteryLevel * 100))%"
     }
     
-    private let minimumBatteryLevel: Float = 0.2
+    private let minimumBatteryLevel: Float = AppConfiguration.Battery.minimumLevel
     private var timer: Timer?
     
     var isSimulationMode: Bool {

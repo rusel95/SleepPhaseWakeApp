@@ -9,6 +9,7 @@ import SwiftUI
 import CoreMotion
 import OSLog
 import HealthKit
+import UserNotifications
 
 final class SleepSessionCoordinatorService: NSObject {
 
@@ -24,9 +25,10 @@ final class SleepSessionCoordinatorService: NSObject {
     @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
     @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
 
-    private let sensorRecorder = CMSensorRecorder()
+    private let accelerometerService = AccelerometerService.shared
+    private let movementDetector = MovementDetector()
+    private let notificationService = UserNotificationService.shared
 
-    private let simulationDuration = TimeInterval(60) // 1 minute
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "", category: "SleepSessionCoordinatorService")
 
     // MARK: - INIT
@@ -58,20 +60,14 @@ final class SleepSessionCoordinatorService: NSObject {
 
         // NOTE: Should start 30 minutes before wake time
         let processingSessionStartDate = isSimulationMode
-            ? Date().addingTimeInterval(simulationDuration / 2.0) // 30 seconds before finish time
-        : wakeUpDate.addingTimeInterval(-Constants.defaultProcessingDuration)
+            ? Date().addingTimeInterval(AppConfiguration.SleepTracking.simulationWakeWindowDuration / 2.0)
+        : wakeUpDate.addingTimeInterval(-AppConfiguration.SleepTracking.defaultWakeWindowDuration)
         runtimeSession?.start(at: processingSessionStartDate)
 
         lastSessionStart = Date()
-
-        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
-            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-                guard let self = self else { return }
-
-                let accelerometerRecordingDuration = self.isSimulationMode ? self.simulationDuration : self.wakeUpDate.timeIntervalSinceNow
-                self.sensorRecorder.recordAccelerometer(forDuration: accelerometerRecordingDuration)
-            }
-        }
+        
+        // Start accelerometer recording
+        accelerometerService.startRecording()
     }
 
     func invalidate() {
@@ -81,6 +77,9 @@ final class SleepSessionCoordinatorService: NSObject {
         runtimeSession?.invalidate()
         lastSessionStart = nil
         state = MeasureState.notStarted.rawValue
+        
+        // Stop accelerometer recording
+        accelerometerService.stopRecording()
     }
 
 }
@@ -119,54 +118,69 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
 
 private extension SleepSessionCoordinatorService {
 
-    /* Due to WatchOS system limits max amount of RuntimeSession at Background is 30 minutes
-            => We have 30 minutes in summary to Determine the best moment to WakeUp
-            => Processing have to be started maximum 30 minutes before Wake UP time
-            => User's moves shows Not Deep phase of sleep + We can detect user's moves via Accelerometer
-            => Once User moved with hand for the first time while 30 minutes window we have to Wake him Up
-     */
     func scheduleDataProcessing() {
         logger.info("Data Processing started")
-        processingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-            // NOTE: click sound for testing puproses for clearness of background work
+        processingTimer = Timer.scheduledTimer(withTimeInterval: AppConfiguration.SleepTracking.dataProcessingInterval, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
+            
+            // Play click sound in simulation mode
             if self.isSimulationMode {
                 WKInterfaceDevice.current().play(.click)
             }
-
-            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-                guard let self = self,
-                      let list = self.sensorRecorder.accelerometerData(from: Date().addingTimeInterval(TimeInterval(-1)), to: Date())?.enumerated(),
-                      self.runtimeSession?.state == .running else { return }
-
-                /* Phase detection Version 0.0.1
-                    Currently we are using just very simple shake detection for discovering Sleep Phase - Once user moved we Wake him up
-                    In the futire is is possible that we will use:
-                       - Heart Rate
-                       - HealthKit sleep analyse
-                */
-                let accelerometerDataArray = list.compactMap { $0.element as? CMRecordedAccelerometerData }
-                let totalAccelerationsArray = accelerometerDataArray
-                    .map { sqrt(pow($0.acceleration.x, 2) + pow($0.acceleration.y, 2) + pow($0.acceleration.z, 2)) }
-
-                // NOTE: 1.2 is a temporary constant - detects only fast moves approximately
-                let bigAccelerationsArray = totalAccelerationsArray.filter { $0 > 1.2 }
-
-                // NOTE: - Stop Session if some moving existed
-                if bigAccelerationsArray.count > 0 {
-                    self.logger.info("\(bigAccelerationsArray.debugDescription)")
-                    if self.isSimulationMode {
-                        WKInterfaceDevice.current().play(.stop)
-                    }
-                    timer.invalidate()
-                    // NOTE: - User must be notified via System's Alarm tool about finishing
-                    self.runtimeSession?.notifyUser(hapticType: .stop)
-                    self.state = MeasureState.finished.rawValue
-                }
-            }
-        })
+            
+            self.checkForMovement(timer: timer)
+        }
+        
         if let logTimer = processingTimer {
             RunLoop.current.add(logTimer, forMode: .common)
         }
+    }
+    
+    private func checkForMovement(timer: Timer) {
+        guard runtimeSession?.state == .running else { return }
+        
+        let queryStartDate = Date().addingTimeInterval(-AppConfiguration.SleepTracking.accelerometerLookbackTime)
+        let queryEndDate = Date()
+        
+        accelerometerService.queryRecordedData(from: queryStartDate, to: queryEndDate) { [weak self] dataList in
+            guard let self = self,
+                  let dataList = dataList else { return }
+            
+            // Process accelerometer data
+            for dataList in dataList {
+                for data in dataList {
+                    if let accelerometerData = data as? CMRecordedAccelerometerData {
+                        if self.movementDetector.handleAccelerometerData(accelerometerData) {
+                            self.handleWakeUpDetected(timer: timer)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func handleWakeUpDetected(timer: Timer) {
+        logger.info("Movement detected - triggering wake up")
+        
+        if isSimulationMode {
+            WKInterfaceDevice.current().play(.stop)
+        }
+        
+        timer.invalidate()
+        
+        // Notify user with system alarm
+        runtimeSession?.notifyUser(hapticType: .stop)
+        
+        // Schedule a user notification as backup
+        notificationService.scheduleWakeUpNotification(
+            title: "Good Morning!",
+            body: "Time to wake up",
+            sound: UNNotificationSound.default
+        )
+        
+        // Update app state
+        state = MeasureState.finished.rawValue
     }
 
 }

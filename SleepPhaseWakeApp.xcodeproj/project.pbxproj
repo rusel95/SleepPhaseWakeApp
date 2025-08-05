@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B6FEA20B49C3673B9EE60BE /* SleepTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD5BC40527A8DDBAD0E71E /* SleepTimePicker.swift */; };
 		4A39296210BBCD4557160BF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358C434E477AC073B7EE9DFD /* Foundation.framework */; };
 		50C6A42E277FF5EBED30351D /* SleepSessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10901972C665C46A0FFDA04 /* SleepSessionManagerTests.swift */; };
 		575F8AEAA7A7FEE12A5D98E9 /* UserNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489F9A658A52FDFEAD4772A /* UserNotificationService.swift */; };
@@ -14,6 +15,7 @@
 		5A8D5643833AA3895507D27E /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C97F86636DB6DE237EEF47 /* PrimaryActionButton.swift */; };
 		5C2A62B3477F549F43E48314 /* AnimationModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0D9E00DF6B64D4B30BA1D /* AnimationModifiers.swift */; };
 		5CA906F6D1DAB8010525629B /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027AE63F65F5B9202C6E3FB /* AppStateManager.swift */; };
+		6671311FF1D41372B5A00CE2 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA1E97001E98A2A2432BA7C /* ProgressRing.swift */; };
 		732B4AFFAA1B5F536482EA2B /* AppStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BA0DFF66AB347E89401852 /* AppStateManagerTests.swift */; };
 		741457FF281C164C00374996 /* Sleep Phase.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 741457FE281C164C00374996 /* Sleep Phase.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		74145804281C164D00374996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74145803281C164D00374996 /* Assets.xcassets */; };
@@ -38,10 +40,12 @@
 		7497FF5F2844B12A004DA367 /* FinishedSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */; };
 		78AE828D570C46F84B1FAA22 /* MovementDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64C51948ED832120B07C3 /* MovementDetectorTests.swift */; };
 		7D96568FA736BAAE6584079A /* ComplicationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BD8F4147198FB0ABE6E115 /* ComplicationViews.swift */; };
+		8DB75052DA074D66B2CA968A /* SlideToStartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D7A3705618399BE678915E /* SlideToStartButton.swift */; };
 		9B2DBABE99EEF805960A56A3 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8C33B3AA370206AB8DEBEE /* TimeFormatter.swift */; };
 		BC6A13E35580A67197B1EE52 /* AccelerometerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161DFFE2EC048AE17BB73D0B /* AccelerometerService.swift */; };
 		DF3AFAE75B30A819F55FEAE0 /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4C697911B7EFC539145E50 /* TimeFormatterTests.swift */; };
 		EC0905656248C87BD2BDBF5A /* MovementDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E21CA4502CD00E118671C /* MovementDetector.swift */; };
+		F3704CE2E6D3BF327400C719 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A511E26AC7BBBDA03F05BD /* AppConfiguration.swift */; };
 		FF75F4CF7AAB8C2452BE7DAA /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A47362910F89CD2CF5171 /* DeviceSize.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +105,7 @@
 		24E0D9E00DF6B64D4B30BA1D /* AnimationModifiers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimationModifiers.swift; sourceTree = "<group>"; };
 		286E21CA4502CD00E118671C /* MovementDetector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MovementDetector.swift; sourceTree = "<group>"; };
 		358C434E477AC073B7EE9DFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		35A511E26AC7BBBDA03F05BD /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		5EF64C51948ED832120B07C3 /* MovementDetectorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MovementDetectorTests.swift; path = SleepPhaseWakeAppTests/MovementDetectorTests.swift; sourceTree = "<group>"; };
 		741457FA281C164B00374996 /* Sleep Phase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep Phase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		741457FE281C164C00374996 /* Sleep Phase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep Phase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,13 +131,16 @@
 		7490B46328522D1800AB5C1A /* NotStartedSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotStartedSessionViewModel.swift; sourceTree = "<group>"; };
 		7490B4662852368600AB5C1A /* FinishedSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedSessionViewModel.swift; sourceTree = "<group>"; };
 		7497FF5E2844B12A004DA367 /* FinishedSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedSessionView.swift; sourceTree = "<group>"; };
+		89D7A3705618399BE678915E /* SlideToStartButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlideToStartButton.swift; sourceTree = "<group>"; };
 		96D94538FC0A9133ED14EEB7 /* ComplicationDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ComplicationDataProvider.swift; sourceTree = "<group>"; };
 		A10901972C665C46A0FFDA04 /* SleepSessionManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SleepSessionManagerTests.swift; path = SleepPhaseWakeAppTests/SleepSessionManagerTests.swift; sourceTree = "<group>"; };
 		AF4C697911B7EFC539145E50 /* TimeFormatterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimeFormatterTests.swift; path = SleepPhaseWakeAppTests/TimeFormatterTests.swift; sourceTree = "<group>"; };
 		B1BD8F4147198FB0ABE6E115 /* ComplicationViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ComplicationViews.swift; sourceTree = "<group>"; };
+		B7CD5BC40527A8DDBAD0E71E /* SleepTimePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SleepTimePicker.swift; sourceTree = "<group>"; };
 		C0BA0DFF66AB347E89401852 /* AppStateManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppStateManagerTests.swift; path = SleepPhaseWakeAppTests/AppStateManagerTests.swift; sourceTree = "<group>"; };
 		C9C97F86636DB6DE237EEF47 /* PrimaryActionButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
 		DD9DA4544FB6D1CC64950B2E /* .xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAA1E97001E98A2A2432BA7C /* ProgressRing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		F027AE63F65F5B9202C6E3FB /* AppStateManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		FF8C33B3AA370206AB8DEBEE /* TimeFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,11 +164,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0788D9683AB082E3BAC9E091 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				35A511E26AC7BBBDA03F05BD /* AppConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		0CF3032D23840D3CEA5FACC4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				24E0D9E00DF6B64D4B30BA1D /* AnimationModifiers.swift */,
 				C9C97F86636DB6DE237EEF47 /* PrimaryActionButton.swift */,
+				B7CD5BC40527A8DDBAD0E71E /* SleepTimePicker.swift */,
+				EAA1E97001E98A2A2432BA7C /* ProgressRing.swift */,
+				89D7A3705618399BE678915E /* SlideToStartButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -208,6 +227,7 @@
 				7414581A281C164E00374996 /* Preview Content */,
 				C51D00F46B62E42397C74FB3 /* Utilities */,
 				FC53E9FDF3767194B239B3EB /* Views */,
+				0788D9683AB082E3BAC9E091 /* Configuration */,
 			);
 			path = "SleepPhaseWakeApp WatchKit Extension";
 			sourceTree = "<group>";
@@ -525,6 +545,10 @@
 				5858514D67EB55FA28579A26 /* ComplicationDataProvider.swift in Sources */,
 				7D96568FA736BAAE6584079A /* ComplicationViews.swift in Sources */,
 				FF75F4CF7AAB8C2452BE7DAA /* DeviceSize.swift in Sources */,
+				2B6FEA20B49C3673B9EE60BE /* SleepTimePicker.swift in Sources */,
+				6671311FF1D41372B5A00CE2 /* ProgressRing.swift in Sources */,
+				8DB75052DA074D66B2CA968A /* SlideToStartButton.swift in Sources */,
+				F3704CE2E6D3BF327400C719 /* AppConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
