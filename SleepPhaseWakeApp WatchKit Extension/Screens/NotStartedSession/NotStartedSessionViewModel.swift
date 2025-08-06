@@ -26,10 +26,15 @@ final class NotStartedSessionViewModel: ObservableObject {
    
     // MARK: - METHODS
     
-    private let stateManager = AppStateManager.shared
-    private let sessionManager = SleepSessionCoordinatorService.shared
+    private let stateManager: any StateManager
+    private let sessionCoordinator: any SessionCoordinating
     
-    init() {
+    init(
+        stateManager: any StateManager = AppStateManager.shared,
+        sessionCoordinator: any SessionCoordinating = SleepSessionCoordinatorService.shared
+    ) {
+        self.stateManager = stateManager
+        self.sessionCoordinator = sessionCoordinator
         isAnimating = true
     }
     
@@ -46,7 +51,7 @@ final class NotStartedSessionViewModel: ObservableObject {
     func startDidSelected() {
         let wakeUpDate = calculateWakeUpDate()
         stateManager.wakeUpDate = wakeUpDate
-        sessionManager.start()
+        sessionCoordinator.start()
         stateManager.measureState = .started
     }
     

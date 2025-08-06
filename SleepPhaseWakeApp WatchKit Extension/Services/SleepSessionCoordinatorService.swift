@@ -11,23 +11,19 @@ import OSLog
 import HealthKit
 import UserNotifications
 
-final class SleepSessionCoordinatorService: NSObject {
+final class SleepSessionCoordinatorService: NSObject, SessionCoordinating {
 
     // MARK: - PROPERTY
 
     static let shared: SleepSessionCoordinatorService = SleepSessionCoordinatorService()
     
-    private var runtimeSession: WKExtendedRuntimeSession?
-    private var processingTimer: Timer?
-
-    @AppStorage("measureState") private var state: String = MeasureState.started.rawValue
     @AppStorage("lastSessionStart") private var lastSessionStart: Date?
-    @AppStorage("wakeUpDate") private var wakeUpDate: Date = Date() // default value should never be used
-    @AppStorage("isSimulationMode") private var isSimulationMode: Bool = false
 
+    private let stateManager = AppStateManager.shared
     private let accelerometerService = AccelerometerService.shared
-    private let movementDetector = MovementDetector()
     private let notificationService = UserNotificationService.shared
+    private let runtimeSessionManager = RuntimeSessionManager()
+    private let movementMonitor = MovementMonitor()
 
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "", category: "SleepSessionCoordinatorService")
 
@@ -44,26 +40,20 @@ final class SleepSessionCoordinatorService: NSObject {
     // MARK: - METHODS
 
     func start() {
-        guard runtimeSession?.state != .running else { return }
+        guard !runtimeSessionManager.isRunning else { return }
 
         logger.info("Sleep Session started")
 
-        if isSimulationMode {
-            WKInterfaceDevice.current().play(.start)
+        if stateManager.isSimulationMode {
+            HapticFeedback.impact(.start)
         }
-
-        // NOTE: Create or recreate session if needed
-        if runtimeSession == nil || runtimeSession?.state == .invalid {
-            runtimeSession = WKExtendedRuntimeSession()
-        }
-        runtimeSession?.delegate = self
 
         // NOTE: Should start 30 minutes before wake time
-        let processingSessionStartDate = isSimulationMode
+        let processingSessionStartDate = stateManager.isSimulationMode
             ? Date().addingTimeInterval(AppConfiguration.SleepTracking.simulationWakeWindowDuration / 2.0)
-        : wakeUpDate.addingTimeInterval(-AppConfiguration.SleepTracking.defaultWakeWindowDuration)
-        runtimeSession?.start(at: processingSessionStartDate)
-
+        : stateManager.wakeUpDate.addingTimeInterval(-AppConfiguration.SleepTracking.defaultWakeWindowDuration)
+        
+        runtimeSessionManager.start(at: processingSessionStartDate, delegate: self)
         lastSessionStart = Date()
         
         // Start accelerometer recording
@@ -72,11 +62,10 @@ final class SleepSessionCoordinatorService: NSObject {
 
     func invalidate() {
         logger.info("Sleep Session Stopped")
-        processingTimer?.invalidate()
-        runtimeSession?.delegate = nil
-        runtimeSession?.invalidate()
+        movementMonitor.stopMonitoring()
+        runtimeSessionManager.stop()
         lastSessionStart = nil
-        state = MeasureState.notStarted.rawValue
+        stateManager.measureState = .notStarted
         
         // Stop accelerometer recording
         accelerometerService.stopRecording()
@@ -92,23 +81,26 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
                                 didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
                                 error: Error?) {
         logger.info("Session invalidated with reason: \(reason.rawValue), error: \(error.debugDescription)")
-        if isSimulationMode {
-            WKInterfaceDevice.current().play(.stop)
+        if stateManager.isSimulationMode {
+            HapticFeedback.impact(.stop)
         }
     }
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         logger.info("Session Started")
-        if isSimulationMode {
-            WKInterfaceDevice.current().play(.click)
+        if stateManager.isSimulationMode {
+            HapticFeedback.selection()
         }
-        scheduleDataProcessing()
+        
+        movementMonitor.startMonitoring { [weak self] in
+            self?.handleWakeUpDetected()
+        }
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         logger.error("Session will expire")
-        if isSimulationMode {
-            WKInterfaceDevice.current().play(.failure)
+        if stateManager.isSimulationMode {
+            HapticFeedback.error()
         }
     }
 
@@ -117,60 +109,12 @@ extension SleepSessionCoordinatorService: WKExtendedRuntimeSessionDelegate {
 // MARK: - HELPERS
 
 private extension SleepSessionCoordinatorService {
-
-    func scheduleDataProcessing() {
-        logger.info("Data Processing started")
-        processingTimer = Timer.scheduledTimer(withTimeInterval: AppConfiguration.SleepTracking.dataProcessingInterval, repeats: true) { [weak self] timer in
-            guard let self = self else { return }
-            
-            // Play click sound in simulation mode
-            if self.isSimulationMode {
-                WKInterfaceDevice.current().play(.click)
-            }
-            
-            self.checkForMovement(timer: timer)
-        }
-        
-        if let logTimer = processingTimer {
-            RunLoop.current.add(logTimer, forMode: .common)
-        }
-    }
     
-    private func checkForMovement(timer: Timer) {
-        guard runtimeSession?.state == .running else { return }
-        
-        let queryStartDate = Date().addingTimeInterval(-AppConfiguration.SleepTracking.accelerometerLookbackTime)
-        let queryEndDate = Date()
-        
-        accelerometerService.queryRecordedData(from: queryStartDate, to: queryEndDate) { [weak self] dataList in
-            guard let self = self,
-                  let dataList = dataList else { return }
-            
-            // Process accelerometer data
-            for dataList in dataList {
-                for data in dataList {
-                    if let accelerometerData = data as? CMRecordedAccelerometerData {
-                        if self.movementDetector.handleAccelerometerData(accelerometerData) {
-                            self.handleWakeUpDetected(timer: timer)
-                            return
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func handleWakeUpDetected(timer: Timer) {
+    func handleWakeUpDetected() {
         logger.info("Movement detected - triggering wake up")
         
-        if isSimulationMode {
-            WKInterfaceDevice.current().play(.stop)
-        }
-        
-        timer.invalidate()
-        
         // Notify user with system alarm
-        runtimeSession?.notifyUser(hapticType: .stop)
+        runtimeSessionManager.notifyUser(hapticType: .notification)
         
         // Schedule a user notification as backup
         notificationService.scheduleWakeUpNotification(
@@ -180,7 +124,6 @@ private extension SleepSessionCoordinatorService {
         )
         
         // Update app state
-        state = MeasureState.finished.rawValue
+        stateManager.measureState = .finished
     }
-
 }

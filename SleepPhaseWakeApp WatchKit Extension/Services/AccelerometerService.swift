@@ -39,6 +39,10 @@ final class AccelerometerService: SensorDataProvider {
         }
         
         let dataList = sensorRecorder.accelerometerData(from: startDate, to: endDate)
-        completion(dataList != nil ? [dataList!] : nil)
+        if let dataList = dataList {
+            completion([dataList])
+        } else {
+            completion(nil)
+        }
     }
 }

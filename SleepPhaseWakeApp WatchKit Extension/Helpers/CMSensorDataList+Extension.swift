@@ -7,7 +7,7 @@
 
 import CoreMotion
 
-extension CMSensorDataList: Sequence {
+extension CMSensorDataList: @retroactive Sequence {
 
     public typealias Iterator = NSFastEnumerationIterator
 

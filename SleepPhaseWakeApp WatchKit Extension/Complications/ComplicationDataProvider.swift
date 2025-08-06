@@ -76,16 +76,12 @@ final class ComplicationDataProvider: ComplicationDataProviding {
     // MARK: - Template Creation Methods
     
     private func createCircularSmallTemplate(with info: SleepComplicationInfo) -> CLKComplicationTemplate {
-        let imageProvider = CLKImageProvider(onePieceImage: UIImage(systemName: info.isActive ? "bed.double.fill" : "bed.double")!)
-        imageProvider.tintColor = info.isActive ? .green : .white
-        
+        let imageProvider = ImageProviderFactory.makeSleepImageProvider(isActive: info.isActive)
         return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: imageProvider)
     }
     
     private func createModularSmallTemplate(with info: SleepComplicationInfo) -> CLKComplicationTemplate {
-        let imageProvider = CLKImageProvider(onePieceImage: UIImage(systemName: info.isActive ? "bed.double.fill" : "bed.double")!)
-        imageProvider.tintColor = info.isActive ? .green : .white
-        
+        let imageProvider = ImageProviderFactory.makeSleepImageProvider(isActive: info.isActive)
         return CLKComplicationTemplateModularSmallSimpleImage(imageProvider: imageProvider)
     }
     
@@ -102,9 +98,7 @@ final class ComplicationDataProvider: ComplicationDataProviding {
     }
     
     private func createUtilitarianSmallTemplate(with info: SleepComplicationInfo) -> CLKComplicationTemplate {
-        let imageProvider = CLKImageProvider(onePieceImage: UIImage(systemName: info.isActive ? "bed.double.fill" : "bed.double")!)
-        imageProvider.tintColor = info.isActive ? .green : .white
-        
+        let imageProvider = ImageProviderFactory.makeSleepImageProvider(isActive: info.isActive)
         return CLKComplicationTemplateUtilitarianSmallSquare(imageProvider: imageProvider)
     }
     
@@ -115,9 +109,7 @@ final class ComplicationDataProvider: ComplicationDataProviding {
     }
     
     private func createExtraLargeTemplate(with info: SleepComplicationInfo) -> CLKComplicationTemplate {
-        let imageProvider = CLKImageProvider(onePieceImage: UIImage(systemName: info.isActive ? "bed.double.fill" : "bed.double")!)
-        imageProvider.tintColor = info.isActive ? .green : .white
-        
+        let imageProvider = ImageProviderFactory.makeSleepImageProvider(isActive: info.isActive)
         return CLKComplicationTemplateExtraLargeSimpleImage(imageProvider: imageProvider)
     }
     
@@ -130,7 +122,7 @@ final class ComplicationDataProvider: ComplicationDataProviding {
     private func createGraphicBezelTemplate(with info: SleepComplicationInfo) -> CLKComplicationTemplate {
         let circularTemplate = CLKComplicationTemplateGraphicCircularClosedGaugeImage(
             gaugeProvider: CLKSimpleGaugeProvider(style: .fill, gaugeColor: .green, fillFraction: info.isActive ? 1.0 : 0.0),
-            imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(systemName: "bed.double.fill")!)
+            imageProvider: ImageProviderFactory.makeFullColorSleepImageProvider(isActive: true)
         )
         
         let textProvider = CLKSimpleTextProvider(text: info.statusText)

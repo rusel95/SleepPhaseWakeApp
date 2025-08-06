@@ -19,7 +19,7 @@ struct ComplicationViews {
                 Circle()
                     .fill(info.isActive ? Color.green.opacity(0.3) : Color.gray.opacity(0.3))
                 
-                Image(systemName: info.isActive ? "bed.double.fill" : "bed.double")
+                Icons.Sleep.getImage(isActive: info.isActive)
                     .font(.system(size: 22))
                     .foregroundColor(info.isActive ? .green : .white)
             }
@@ -45,7 +45,7 @@ struct ComplicationViews {
                 }
                 
                 VStack(spacing: 2) {
-                    Image(systemName: info.isActive ? "bed.double.fill" : "bed.double")
+                    Icons.Sleep.getImage(isActive: info.isActive)
                         .font(.system(size: 16))
                         .foregroundColor(info.isActive ? .green : .white)
                     
@@ -79,7 +79,7 @@ struct ComplicationViews {
         var body: some View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Image(systemName: info.isActive ? "bed.double.fill" : "bed.double")
+                    Icons.Sleep.getImage(isActive: info.isActive)
                         .font(.system(size: 20))
                         .foregroundColor(info.isActive ? .green : .white)
                     
@@ -118,7 +118,7 @@ struct ComplicationViews {
                     .fill(info.isActive ? Color.green.opacity(0.2) : Color.gray.opacity(0.2))
                 
                 VStack(spacing: 8) {
-                    Image(systemName: info.isActive ? "bed.double.fill" : "bed.double")
+                    Icons.Sleep.getImage(isActive: info.isActive)
                         .font(.system(size: 44))
                         .foregroundColor(info.isActive ? .green : .white)
                     

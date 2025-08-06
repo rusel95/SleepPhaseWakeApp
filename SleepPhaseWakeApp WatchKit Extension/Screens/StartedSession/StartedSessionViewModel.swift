@@ -44,12 +44,17 @@ final class StartedSessionViewModel: ObservableObject {
         stateManager.wakeUpDate
     }
     
-    private let stateManager = AppStateManager.shared
-    private let sessionManager = SleepSessionCoordinatorService.shared
+    private let stateManager: any StateManager
+    private let sessionCoordinator: any SessionCoordinating
     
     // MARK: - INIT
     
-    init() {
+    init(
+        stateManager: any StateManager = AppStateManager.shared,
+        sessionCoordinator: any SessionCoordinating = SleepSessionCoordinatorService.shared
+    ) {
+        self.stateManager = stateManager
+        self.sessionCoordinator = sessionCoordinator
         showLowBatteryLevelAlertIfNeeded()
     }
     
@@ -98,7 +103,7 @@ final class StartedSessionViewModel: ObservableObject {
         timer = nil
         isMonitoring = false
         stateManager.measureState = .notStarted
-        sessionManager.invalidate()
+        sessionCoordinator.invalidate()
     }
     
     deinit {
