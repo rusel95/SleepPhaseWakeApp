@@ -23,9 +23,7 @@ final class UserNotificationService: NotificationService {
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-            DispatchQueue.main.async {
-                completion(granted)
-            }
+            completion(granted)
         }
     }
     

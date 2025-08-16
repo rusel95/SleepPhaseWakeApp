@@ -42,9 +42,6 @@ final class FinishedSessionViewModel: ObservableObject {
     }
     
     var wakeTimeMessage: String {
-        _ = TimeFormatter.formatTime(Date())
-        _ = TimeFormatter.formatTime(wakeUpDate)
-        
         let minutesDifference = Int(Date().timeIntervalSince(wakeUpDate) / 60)
         if abs(minutesDifference) < 5 {
             return "Perfect timing! ✨"
@@ -65,7 +62,15 @@ final class FinishedSessionViewModel: ObservableObject {
     func recordSleepQuality(_ quality: String) {
         // This is a placeholder for future sleep quality tracking
         // Could integrate with HealthKit or custom analytics
-        print("Sleep quality recorded: \(quality)")
+    }
+    
+    func viewDidAppear() {
+        // Play wake up haptics pattern
+        for delay in AppConfiguration.Haptics.wakeUpPatternDelays {
+            Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
+                HapticFeedback.success()
+            }
+        }
     }
     
 }

@@ -6,8 +6,8 @@
 //
 
 import Combine
-import WatchKit
 import SwiftUI
+import WatchKit
 
 final class StartedSessionViewModel: ObservableObject {
     
@@ -61,11 +61,12 @@ final class StartedSessionViewModel: ObservableObject {
     // MARK: - METHODS
     
     func showLowBatteryLevelAlertIfNeeded() {
-        WKInterfaceDevice.current().isBatteryMonitoringEnabled = true
-        if WKInterfaceDevice.current().batteryLevel < minimumBatteryLevel {
+        let device = WKInterfaceDevice.current()
+        device.isBatteryMonitoringEnabled = true
+        if device.batteryLevel < minimumBatteryLevel {
             isAlertPresented = true
         }
-        WKInterfaceDevice.current().isBatteryMonitoringEnabled = false
+        device.isBatteryMonitoringEnabled = false
     }
     
     func startMonitoring() {

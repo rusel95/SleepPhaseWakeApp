@@ -35,7 +35,6 @@ final class NotStartedSessionViewModel: ObservableObject {
     ) {
         self.stateManager = stateManager
         self.sessionCoordinator = sessionCoordinator
-        isAnimating = true
     }
     
     func longTapDetected() {
@@ -43,9 +42,7 @@ final class NotStartedSessionViewModel: ObservableObject {
     }
     
     func viewDidAppear() {
-        withAnimation {
-            isAnimating = true
-        }
+        isAnimating = true
     }
     
     func startDidSelected() {

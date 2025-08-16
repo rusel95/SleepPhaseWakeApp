@@ -22,6 +22,73 @@ SleepPhaseWakeApp is a watchOS-only application that wakes users during lighter 
 - Ensure UI works on all watchOS screen sizes (especially SE 40mm/44mm)
 - No ViewModelBase or unnecessary abstractions
 
+## Architecture Patterns
+
+When implementing new features, consider these patterns:
+
+### Primary Pattern: MVVM (Model-View-ViewModel)
+- **Already in use** - Separates UI from business logic
+- Works seamlessly with SwiftUI's reactive nature
+- ViewModels handle state and business logic
+- Views are purely declarative
+
+### Alternative Patterns to Consider:
+- **MVP (Model-View-Presenter)**: When you need more control over view logic
+- **Clean Architecture**: For complex features with multiple data sources
+- **Coordinator Pattern**: For managing complex navigation flows
+- **Unidirectional Data Flow**: For features with complex state management
+
+### Patterns to Avoid:
+- **MVC**: Can lead to massive view controllers
+- **VIPER**: Overcomplicated for watchOS apps
+
+## Design Patterns
+
+### Currently Used:
+- **Singleton**: For shared services (AppStateManager, AccelerometerService)
+- **Observer**: Through Combine and @Published properties
+- **Protocol-Oriented Programming**: Primary abstraction mechanism
+- **Strategy**: MovementDetector implements different detection algorithms
+
+### Recommended Patterns:
+- **Factory**: When creating complex objects with multiple configurations
+- **Builder**: For constructing multi-step objects
+- **Repository**: To abstract data access (future enhancement)
+- **Facade**: To simplify complex subsystem interactions
+- **Dependency Injection**: Pass dependencies, don't create them
+
+### Use Sparingly:
+- **Singleton**: Only for truly shared state/services
+
+## iOS-Specific Patterns
+
+### SwiftUI Patterns:
+- **@StateObject/@ObservedObject**: For ViewModel bindings
+- **@EnvironmentObject**: For app-wide shared state
+- **ViewModifier**: For reusable view modifications
+- **PreferenceKey**: For child-to-parent communication
+
+### Combine Patterns:
+- **Publishers/Subscribers**: For reactive data streams
+- **Operators**: For transforming data flows
+- **Cancellables**: Proper memory management
+
+## Best Practices
+
+### Core Principles:
+- **SOLID Principles** (mandatory)
+- **DRY (Don't Repeat Yourself)** - Extract reusable logic
+- **KISS (Keep It Simple, Stupid)** - Avoid overengineering
+- **YAGNI (You Aren't Gonna Need It)** - Don't add unused features
+- **Composition over Inheritance** - Use protocols and composition
+
+### Swift-Specific:
+- **Protocol-Oriented Programming** over class inheritance
+- **Value Types** (structs) over reference types when possible
+- **Optionals** instead of force unwrapping
+- **Guard statements** for early returns
+- **Extensions** to organize code logically
+
 ## Common Development Commands
 
 ### Building

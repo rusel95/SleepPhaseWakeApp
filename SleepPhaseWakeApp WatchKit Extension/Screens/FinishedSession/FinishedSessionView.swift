@@ -79,13 +79,7 @@ struct FinishedSessionView: View {
             withAnimation(Theme.Animation.smooth.repeatForever(autoreverses: false)) {
                 sunRotation = 360
             }
-            
-            // Play wake up haptics pattern
-            for delay in AppConfiguration.Haptics.wakeUpPatternDelays {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    HapticFeedback.success()
-                }
-            }
+            viewModel.viewDidAppear()
         }
     }
 
